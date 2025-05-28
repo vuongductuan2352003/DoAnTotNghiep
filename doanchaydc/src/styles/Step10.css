@@ -1,108 +1,156 @@
-/* src/pages/GetData/Step10Preference.css */
+/* src/styles/Step10.css */
 
+/* 1. Bọc căn giữa toàn viewport */
+.step10-viewport {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* giữ grid nền nếu có */
+}
+
+/* 2. Root: không cần padding trên, căn giữa luôn */
 .step10-root {
-  max-width: 520px;
+  width: 100%;
+  max-width: 420px;
   margin: 0 auto;
-  padding: 36px 8px 0 8px;
+  padding: 0;
   text-align: center;
-}
-
-.step10-title {
-  color: #fff;
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin-bottom: 16px;
-  letter-spacing: 1.2px;
-  text-shadow: 0 2px 12px #101010c9;
-}
-
-.step10-card {
-  background: #181818;
-  border-radius: 30px;
-  box-shadow: 0 8px 40px #0009;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 16px 18px 16px;
-  margin-bottom: 30px;
-  min-height: 380px;
   justify-content: center;
+}
+
+/* 3. Title: tăng độ nổi, co lại cho gọn */
+.step10-title {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 28px #000b, 0 1px 0 #222;
+  line-height: 1.2;
+}
+
+/* 4. Card: rộng vừa, bo nhiều, shadow mạnh, center */
+.step10-card {
+  background: #171717;
+  border-radius: 32px 32px 22px 22px;
+  box-shadow: 0 10px 60px #0007;
+  padding: 34px 18px 0 18px;
+  margin-bottom: 0;
+  min-height: 395px;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+  transition: box-shadow 0.32s cubic-bezier(.4,.17,.2,1);
 }
 
 .step10-img {
-  width: 210px;
-  max-width: 90vw;
-  height: auto;
-  margin: 0 auto 20px auto;
+  width: 286px;
+  height: 288px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 18px #2b2b2b99);
-  background: transparent;
+  filter: drop-shadow(0 6px 28px #ff572277);
+  margin: 0 auto 16px auto;
+  transition: filter 0.3s;
 }
 
 .step10-label {
   color: #fff;
-  font-weight: 700;
-  font-size: 1.25rem;
-  background: #232323;
+  width: 109%;
+  font-weight: 800;
+  font-size: 1.17rem;
+  padding: 11px 0 12px 0;
+  background: #202020;
   border-radius: 0 0 18px 18px;
-  padding: 14px 0;
-  width: 100%;
-  letter-spacing: 1px;
-  box-shadow: 0 1px 6px #0004;
+  
+  text-align: center;
+  box-shadow: 0 6px 16px #0003;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
 }
 
 .step10-options {
+  margin-top: 36px;
   display: flex;
-  gap: 24px;
   justify-content: center;
-  margin-top: 24px;
+  gap: 34px;
+  width: 100%;
 }
 
 .step10-btn {
-  background: #191919;
-  color: #ff5722;
+  width: 104px;
+  height: 104px;
   border: none;
-  outline: none;
   border-radius: 22px;
-  padding: 23px 18px 12px 18px;
-  min-width: 112px;
-  min-height: 98px;
+  background: #181818;
+  color: #ff5722;
   font-size: 1.13rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 7px;
-  box-shadow: 0 2px 12px #0003;
-  transition: background 0.13s, color 0.13s, box-shadow 0.13s, transform 0.1s;
+  transition: all 0.18s cubic-bezier(0.43, 0.13, 0.23, 0.96), box-shadow 0.21s;
+  box-shadow: 0 2px 16px #ff572217;
+  position: relative;
+  outline: none;
+  will-change: transform, box-shadow, background, color;
+  /* Bóng glow khi chọn */
 }
 
-.step10-btn:hover, .step10-btn:focus {
-  background: #232323;
+.step10-btn:active,
+.step10-btn:focus {
+  background: #222;
+  color: #ff5722;
+  outline: none;
+}
+
+.step10-btn:hover:not(:disabled),
+.step10-btn.selected {
+  background: #ff5722;
   color: #fff;
-  box-shadow: 0 4px 22px #ff572244;
-  transform: translateY(-3px) scale(1.035);
+  box-shadow: 0 6px 30px #ff572299, 0 0px 0 #fff0;
+  transform: translateY(-8px) scale(1.09);
 }
 
-.step10-btn.like:hover { color: #35fa84; }
-.step10-btn.dislike:hover { color: #ff2222; }
-.step10-btn.neutral:hover { color: #ffd135; }
+.step10-btn[disabled] {
+  opacity: 0.56;
+  pointer-events: none;
+}
 
 .step10-btn span {
-  font-size: 1.1rem;
+  margin-top: 6px;
+  font-size: 1.09rem;
   font-weight: 600;
-  margin-top: 7px;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.01em;
+  line-height: 1.22;
 }
 
-@media (max-width: 660px) {
-  .step10-root { max-width: 98vw; padding: 16px 1vw; }
-  .step10-card { min-height: 240px; padding: 16px 3vw 10px 3vw;}
-  .step10-img { width: 150px; }
-  .step10-options { gap: 10px; }
-  .step10-btn { min-width: 80px; min-height: 72px; padding: 13px 8px 9px 8px;}
-  .step10-title { font-size: 1.55rem; }
-  .step10-label { font-size: 1.03rem; padding: 9px 0; }
+@media (max-width: 600px) {
+  .step10-root {
+    max-width: 97vw;
+    min-width: 0;
+  }
+  .step10-card {
+    min-width: 0;
+    max-width: 92vw;
+    padding: 20px 2vw 0 2vw;
+  }
+  .step10-btn {
+    width: 88px;
+    height: 88px;
+    font-size: 1.01rem;
+  }
+  .step10-img {
+    max-width: 108px;
+    max-height: 88px;
+  }
 }

@@ -1,0 +1,76 @@
+/* src/styles/step9.css */
+.step9-root {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 0 0 0;
+  text-align: center;
+}
+
+.step9-title {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 34px;
+  line-height: 1.1;
+}
+
+.step9-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.step9-card {
+  background: #232323;
+  border-radius: 18px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  padding: 26px 28px 18px 28px;
+  border: 2px solid transparent;
+  transition: 0.18s;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.12);
+  position: relative;
+  font-size: 1.14rem;
+}
+
+.step9-card.selected {
+  border: 2px solid #ff5722;
+  background: linear-gradient(90deg, #181212 80%, #331400 100%);
+  box-shadow: 0 0 0 3px #ff5722cc, 0 6px 32px 0 rgba(255,87,34,0.08);
+  color: #fff;
+}
+
+.step9-card-title {
+  font-size: 1.14em;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.step9-card-desc {
+  font-size: 1em;
+  color: #bbb;
+  font-weight: 400;
+}
+
+.step9-btn {
+  margin-top: 28px;
+  width: 95%;
+  font-size: 1.23rem;
+  padding: 15px 0;
+  background: #ff5722;
+  border-radius: 48px;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 18px #ff5722bb;
+  transition: 0.13s;
+}
+.step9-btn:disabled {
+  background: #222;
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+}

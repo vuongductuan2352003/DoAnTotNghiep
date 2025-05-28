@@ -1,0 +1,350 @@
+/* Styles for the header */
+
+.GioiThieu_AppData{
+
+  width: 100%;
+  height: 100%;
+ 
+  margin-top: -120px;
+}
+  /* giới thiệu 1 */
+
+  .GioiThieu_AppData_1{
+    width: 100%;
+    display: flex;
+  
+    height: 900px;
+    background: radial-gradient(65.29% 66.81% at 31.38% 37.3%, rgba(31, 147, 255, 0.34) 0%, rgba(30, 30, 30, 0) 100%),
+  radial-gradient(88.46% 36.76% at 55.47% 63.24%, rgba(255, 68, 0, 0.45) 0%, rgba(255, 68, 0, 0) 100%),
+  rgb(18, 18, 18)
+  }
+  .GioiThieu_AppData_1_1{
+    z-index: 1;
+    height: 400px;
+    width: 500px;
+    color: black;
+    margin-top: 400px;
+    margin-left: 100px;
+
+  }
+  .GioiThieu_AppData_1_1 h1{
+color: white;
+font-size: 50px;
+
+  }
+  .GioiThieu_AppData_1_1 p{
+    color: white;
+    font-size: 18px;
+    width: 450px;
+    line-height: 35px;
+   
+  }
+  /* ButtonComponent.css */
+.custom-button {
+  background-color: #c06210; /* Xanh lá cây */
+  border: none;
+  color: white;
+  padding: 18px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 20px 50px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #9e671f; /* Màu xanh lá cây đậm hơn khi hover */
+}
+
+
+.GioiThieu_AppData_1_2{
+  margin: 300px 10px;
+}
+
+
+
+/* GIOI THIEU 2 */
+
+
+.GioiThieu_AppData_2{
+  background-color: rgb(16, 15, 15);
+  width: 100%;
+height: auto;
+float: left;
+}
+
+
+.GioiThieu_AppData_2_1{
+  width: 1000px;
+  height: auto;
+
+  margin: 50px 300px;
+  display: flex;
+}
+.GioiThieu_AppData_2_1_1{
+
+  height: 100%;
+  width: 40%;
+  color: white;
+}
+.GioiThieu_AppData_2_1_1 img{
+margin: 100px 30px;
+text-align: center;
+}
+.GioiThieu_AppData_2_1_1 span{
+  float: left;
+  width: 100px;
+margin: -165px 135px;
+font-size: 12px;
+}
+.GioiThieu_AppData_2_1_1 h1{
+  float: left;
+  width: 100px;
+margin: -150px 115px;
+font-size: 35px;
+}
+.GioiThieu_AppData_2_1_1 p{
+  float: left;
+  margin: -90px 25px;
+}
+.GioiThieu_AppData_2_1_1 h4{
+  float: left;
+  margin: -90px 265px;
+}
+
+.GioiThieu_AppData_2_1_2{
+
+  height: 100%;
+  width: 60%;
+  color: white;
+  line-height: 35px;
+margin-top: 80px;
+  
+
+}
+.GioiThieu_AppData_2_1_2 h2{
+  font-size: 34px;
+  line-height: 45px;
+}
+
+.GioiThieu_AppData_2_1_2_icon{
+  background-color: #4d473f;
+  padding: 5px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+.GioiThieu_AppData_2_1_2 span{
+font-size: 14px;
+line-height: 40px;
+}
+
+
+.GioiThieu_AppData_2_2{
+  width: 1200px;
+  height: auto;
+
+  margin: 100px 300px;
+  display: flex;
+}
+
+.GioiThieu_AppData_2_2_1{
+  width: 40%;
+  height: 100%;
+  
+  color: white;
+  font-size: 24px;
+}
+.GioiThieu_AppData_2_2_1 p{
+  font-size: 15px;
+  line-height: 23px;
+}
+
+
+.GioiThieu_AppData_2_2_2{
+  width: 60%;
+  height: 100%;
+margin-left: 40px;
+  color: white;
+}
+.GioiThieu_AppData_2_2_2 img{
+  width: 70%;
+  height: 250px;
+}
+
+
+.GioiThieu_AppData_2_3{
+  width: 1200px;
+  height: 280px;
+  
+  margin: 100px 300px;
+  display: flex;
+}
+
+.GioiThieu_AppData_2_3_1{
+  width: 35%;
+  height: 100%;
+
+  color: white;
+  
+
+}
+.GioiThieu_AppData_2_3_1 img{
+  width: 100%;
+  height: 100%;
+}
+
+.GioiThieu_AppData_2_3_2{
+  width: 45%;
+  height: 100%;
+margin-left: 80px;
+  color: white;
+  line-height: 30px;
+ 
+}
+.GioiThieu_AppData_2_3_2 h2{
+  font-size: 34px;
+}
+
+
+
+.GioiThieu_AppData_2_4{
+  width: 1200px;
+  height: auto;
+
+  margin: 100px 200px;
+  
+}
+.GioiThieu_AppData_2_4_1{
+  width: 1200px;
+  height: 100px;
+
+}
+.GioiThieu_AppData_2_4_1 h2{
+  font-size: 34px;
+  color: white;
+  text-align: center;
+}
+.GioiThieu_AppData_2_4_2{
+  width: 1200px;
+  height: auto;
+
+ display: flex;
+}
+.GioiThieu_AppData_2_4_2_1{
+  line-height: 30px;
+  width: 400px;
+  height: 100%;
+
+margin-left: 20px;
+color: white;
+}
+
+.GioiThieu_AppData_2_4_2_1 b{
+font-size: 28px;
+}
+
+
+.GioiThieu_AppData_3{
+  background-color: #1E1E1E;
+  width: 100%;
+height: 500px;
+float: left;
+
+}
+.GioiThieu_AppData_3_1{
+
+  width: 100%;
+  height: 90px;
+  margin-top: 40px;
+}
+.GioiThieu_AppData_3_1 h2{
+  font-size: 48px;
+  text-align: center;
+  color: white;
+}
+.GioiThieu_AppData_3_2{
+text-align: center;
+  width: auto;
+  height: 50px;
+}
+.GioiThieu_AppData_3_2 span{
+  color: white;
+  
+  
+}
+.GioiThieu_AppData_3_2 span svg{
+width: 20px;
+
+}
+.GioiThieu_AppData_3_3{
+
+  width: 100%;
+  height: 200px;
+}
+
+
+.boot_slide{
+  width: 350px;
+  height: auto;
+ 
+}
+.boot_slide_1{
+  width: 290px;
+display: flex;
+  height: 40px;
+  background-color: black;
+ 
+}
+.boot_slide_1 p{
+ color: white;
+ font-size: 15px;
+ margin: 6px 7px;
+ margin-right: 30px;
+}
+.boot_slide_1 img{
+  width: 25px;
+  height: 25px;
+  margin-top:5px ;
+  margin-left: 10px;
+ 
+}
+.boot_slide_2{
+  width: 290px;
+ 
+  height: auto;
+  background-color: rgb(52, 49, 49);
+}
+.boot_slide_2 p{
+  color: white;
+ margin-left: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+
+
+.custom-prev-icon {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: -200px;
+  
+  
+}
+
+/* Tùy chỉnh nút Next */
+.custom-next-icon {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 200px;
+  
+}
+
+
+
+

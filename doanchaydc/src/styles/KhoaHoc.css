@@ -1,0 +1,97 @@
+.courses-page {
+    padding: 20px;
+  }
+  
+  .courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+   
+  }
+  
+  .course-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    text-align: center;
+    border: solid;
+    width: 350px;
+    height: auto;
+  }
+  
+  .course-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .course-title {
+    font-size: 1.2rem;
+    margin: 12px 0;
+    color: black;
+  }
+  
+  .course-description {
+    font-size: 1rem;
+    color: #000000;
+    margin-bottom: 16px;
+  }
+  
+  .course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  
+  .btn-detail {
+    padding: 10px 16px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-detail:hover {
+    background-color: #3f3f3f;
+  }
+  
+.course-rating{
+    color: #000000;
+}
+.course-price{
+    color: #000000;
+}
+#KhoaHoc{
+    margin-left:20px;
+   
+}
+.KhoaHoc_Main{
+   width: 100%;
+   flex: 1;
+  overflow-y: auto; /* Cho phép cuộn */
+  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE và Edge */
+}
+.KhoaHoc_slide {
+    display: flex;
+    overflow: hidden; /* Ẩn phần dư khi chuyển động */
+    width: 100%; /* Đảm bảo slide chiếm toàn bộ chiều rộng của container */
+   
+  }
+  
+  .KhoaHoc_img {
+    width: 100%; /* Cả hai ảnh đều chiếm 100% chiều rộng của slide */
+    transition: transform 1s ease-in-out;
+
+    
+  }
+  
+  .KhoaHoc_slide:hover .KhoaHoc_img {
+    transform: translateX(-100%); /* Chuyển ảnh sang trái khi hover */
+  }
+  

@@ -1,0 +1,193 @@
+
+/* src/pages/GetData/Step5Circumference.css */
+.step5-circumference {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1.5rem;
+  color: #eee;
+
+}
+
+/* ---- AVATAR ---- */
+.c-avatar {
+    margin-top: 70px;
+  flex: 0 0 220px;
+  text-align: center;
+}
+.c-avatar img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.3s;
+}
+.c-avatar img:hover {
+  transform: scale(1.02);
+}
+.c-avatar-name {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+.c-avatar-info {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* ---- FORM PANEL ---- */
+.c-form-panel {
+  flex: 1;
+  position: relative;
+}
+.c-back-btn {
+  position: absolute;
+  top: -0.5rem;
+  left: -0.5rem;
+  background: #222;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: background 0.2s;
+}
+.c-back-btn:hover {
+  background: #333;
+}
+.c-form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ---- GRID INPUT: 5 CỘT ---- */
+.c-form-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+/* Tablet → 3 cột */
+@media (max-width: 1200px) {
+  .c-form-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Vừa → 2 cột */
+@media (max-width: 768px) {
+  .c-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* Mobile nhỏ → 1 cột */
+@media (max-width: 576px) {
+  .c-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- MỖI CARD ---- */
+.c-form-card {
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 160px;
+
+}
+.c-form-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+}
+
+/* Label */
+.c-form-card .form-label {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ddd;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Input */
+.c-form-card .form-control {
+  width: 85%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: #2a2a2a !important;
+  color: #fff;
+  text-align: center;
+  margin-top: auto;
+  transition: background 0.2s, border-color 0.2s;
+}
+.c-form-card .form-control:focus {
+  background: #333 !important;
+  border-color: #ffc107;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,193,7,0.25);
+}
+.c-form-card .form-control::placeholder {
+  color: #777;
+}
+
+/* Ẩn spinner Chrome, Safari, Edge */
+.c-form-card .form-control::-webkit-outer-spin-button,
+.c-form-card .form-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Ẩn spinner Firefox */
+.c-form-card .form-control[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* ---- BUTTON GROUP ---- */
+.c-btn-group {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.c-btn-group .btn {
+  flex: 1;
+  max-width: 150px;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+.c-btn-group .btn:hover {
+  transform: translateY(-2px);
+}
+.c-btn-group .btn:first-child {
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+.c-btn-group .btn:first-child:hover {
+  background: rgba(255,255,255,0.1);
+}
+.c-btn-group .btn:last-child {
+  background: #ffc107;
+  border: none;
+  color: #222;
+}
+.c-btn-group .btn:last-child:hover {
+  background: #e0a800;
+  color: #111;
+}

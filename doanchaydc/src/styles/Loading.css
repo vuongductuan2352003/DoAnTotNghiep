@@ -1,0 +1,26 @@
+.loading_web {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black; /* Nền đen */
+  }
+  
+  .loading_web img {
+    width: 120px;  /* Kích thước ban đầu của logo */
+    animation: grow 4s ease-in-out infinite;
+  }
+  
+  /* Keyframes để tạo hiệu ứng logo từ từ phóng to */
+  @keyframes grow {
+    0% {
+      width: 120px;  /* Kích thước ban đầu */
+    }
+    50% {
+      width: 180px;  /* Phóng to đến kích thước lớn nhất */
+    }
+    100% {
+      width: 100px;  /* Quay lại kích thước ban đầu */
+    }
+  }
+  

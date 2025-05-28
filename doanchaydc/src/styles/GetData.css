@@ -1,0 +1,112 @@
+.background_AddData {
+  /* thay height:100vh; */
+  min-height: 100vh;          /* ít nhất là full màn, nhưng sẽ tự co giãn khi nội dung dài */
+  width: 100%;                /* luôn full chiều ngang */
+  
+  background-color: #121212;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 0.5px);
+  background-size: 80px 80px;
+  background-repeat: repeat;  /* đảm bảo pattern lặp đầy đủ khi co giãn */
+  
+  /* nếu muốn background nằm cố định khi scroll: */
+  /* background-attachment: fixed; */
+}
+
+
+.background_AddData_1 {
+  width: 1300px;
+  margin: 0 100px;
+  color: #fff;
+  border-radius: 12px;
+}
+
+.background_AddData_1 h1 {
+  font-size: 48px;
+  text-align: center;
+}
+
+.background_AddData_1 p {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* container chia 2 panel */
+.onboard-container {
+  display: flex;
+  gap: 104px;
+  width: auto;
+}
+
+/* preview panel */
+.preview-panel {
+  flex: 0 0 45%;
+  max-width: 65%;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.preview-img {
+  width: 350px;
+  height: 400px;
+  object-fit: cover;
+  border-bottom: 2px solid #a28181;
+  margin-bottom: 12px;
+}
+.preview-info .preview-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.preview-info .preview-age,
+.preview-info .preview-gender {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 2px;
+}
+
+/* form panel */
+.form-panel {
+  flex: 0 0 45%;
+  max-width: 40%;
+  margin-left: auto;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  background: #1b1c1e;
+  
+}
+.form-panel h2 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.form-panel .form-label,
+.form-panel .form-control {
+  background: #2b2b2b !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
+}
+.form-panel .form-control:focus {
+  box-shadow: none !important;
+  border-color: #c3c6c9 !important;
+}
+.form-panel .btn-primary {
+  background: #1b1c1e;
+  border-color: #ecf3fe;
+}
+.form-check-input:checked {
+  background-color: #80510c;
+  border-color: #906e18;
+}
+/* ẩn label FloatingLabel */
+.form-panel .form-floating > label {
+  display: none !important;
+}
+/* placeholder */
+.form-panel .form-control::placeholder {
+  color: #6c757d;
+}

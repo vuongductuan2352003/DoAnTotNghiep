@@ -1,0 +1,65 @@
+/* src/styles/Toast.css */
+
+/* Container chung của react-hot-toast */
+.react-hot-toast {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  /* Mỗi ToastBar */
+  .system-toast {
+    display: flex !important;
+    align-items: flex-start;
+    pointer-events: auto !important;
+    width: 320px;
+    padding: 0.75rem;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    animation: slideIn 0.4s ease-out;
+  }
+  
+  /* Logo bên trái */
+  .system-toast .toast-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+    border-radius: 6px;
+  }
+  
+  /* Nội dung (title + subtitle) */
+  .system-toast .toast-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  /* Tiêu đề (message) */
+  .system-toast .toast-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  /* Phụ đề nếu có */
+  .system-toast .toast-subtitle {
+    font-size: 0.85rem;
+    color: #666666;
+    line-height: 1.2;
+  }
+  
+  /* Nếu bạn muốn highlight error title màu đỏ */
+  .system-toast[data-status='error'] .toast-title {
+    color: #e53935;
+  }
+  
+  /* Animations */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  

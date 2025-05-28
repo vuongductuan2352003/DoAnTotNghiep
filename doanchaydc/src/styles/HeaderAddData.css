@@ -1,0 +1,191 @@
+/* ================= HEADER ================= */
+.header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 2px 12px rgba(0,0,0,0);
+  z-index: 1000;
+  background: transparent !important;
+  box-shadow: none !important;
+  /* nếu đang dùng backdrop-filter để làm mờ, vẫn có thể giữ hoặc bỏ: */
+  backdrop-filter: none !important;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+
+}
+.logo-container img.logo {
+  height: 86px;
+  transition: transform 0.3s, filter 0.3s;
+}
+.logo-container img.logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+/* Back arrow (nếu có) */
+.back-arrow {
+  font-size: 1.6rem;
+  color: #fff;
+  background: none;
+  border: none;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.back-arrow:hover {
+  color: #ff9800;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  flex: 1;
+  margin: 0 1.5rem;
+  max-width: 400px;
+}
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #444;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar .filled {
+  width: var(--progress, 0%);
+  height: 100%;
+  background: linear-gradient(90deg, #ff8c00, #ffc107);
+  transition: width 0.3s ease;
+}
+
+/* Phần bên phải */
+.right-container {
+  display: flex;
+  align-items: center;
+}
+.country-label {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-right: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Menu toggle */
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.menu-toggle:hover,
+.menu-toggle:focus {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+  outline: none;
+}
+
+/* =============== OVERLAY =============== */
+.menu-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 1100;
+}
+.menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============= SLIDING SIDEBAR ============= */
+.menu-content {
+  position: fixed;
+  top: 0; right: 0;
+  width: 300px; height: 100vh;
+  background: linear-gradient(135deg, #222, #111);
+  color: #fff;
+  padding: 2rem 1.5rem;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.7);
+
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1200;
+}
+.menu-content.open {
+  transform: translateX(0);
+}
+
+/* Close button */
+.menu-content .close-button {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.menu-content .close-button:hover {
+  color: #ff9800;
+}
+
+/* Menu items */
+.menu-content ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 3rem;
+}
+.menu-content ul li {
+  margin-bottom: 1.25rem;
+}
+.menu-content ul li a {
+  color: #eee;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  transition: color 0.2s;
+}
+.menu-content ul li a:hover {
+  color: #ffc107;
+}
+
+/* ================ RESPONSIVE ================ */
+@media (max-width: 992px) {
+  /* ẩn progress và country trên tablet */
+  .progress-bar-container,
+  .country-label {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  .logo-container img.logo {
+    height: 48px;
+  }
+  .menu-content {
+    width: 260px;
+    padding: 1.5rem 1rem;
+  }
+}

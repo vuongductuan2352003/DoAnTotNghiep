@@ -1,0 +1,725 @@
+/* App.css */
+
+.sidebar__title_img {
+  height: 100px;
+  width: 260px;
+}
+
+.trangchu_logo2 {
+  width: 30px;
+}
+
+.icon {
+  width: 50px;
+}
+
+
+
+
+
+
+.tabs {
+
+  height: 100%;
+  display: flex;
+  border-bottom: 1px solid #38444d;
+  /* Gạch dưới để phân chia các tab */
+
+}
+
+.tab {
+  text-align: center;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 16px;
+
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Hiệu ứng khi hover */
+  position: relative;
+}
+
+.tab.active {
+  font-weight: bold;
+
+  border-bottom: 2px solid #1da1f2;
+  /* Gạch dưới hiện tại */
+}
+
+.tab:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+  /* Màu nền nhẹ khi hover */
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #1da1f2;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.tab:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+.dropdown {
+height: auto;
+padding-top: 10px;
+  border-radius: 10px;
+  width: 300px;
+
+  background-color: rgb(0, 0, 0);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: -100px;
+
+}
+
+
+/* Container cho ô tìm kiếm */
+.search-container {
+  display: flex;
+  position: fixed;
+  align-items: center; /* Căn giữa dọc giữa icon và input */
+  background-color: rgba(39, 37, 37, 0.9); /* Nền trắng nhạt */
+  border: 1px solid #262424; /* Đường viền nhẹ */
+  border-radius: 25px; /* Bo góc nhẹ */
+  width: 300px; /* Độ dài ô tìm kiếm */
+  padding: 5px 15px; /* Khoảng cách trong container */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bóng nhẹ */
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 10px;
+}
+
+/* Icon tìm kiếm bên trái */
+.search-icon {
+  font-size: 16px; /* Kích thước icon */
+  color: #555; /* Màu icon */
+  margin-right: 10px; /* Khoảng cách giữa icon và input */
+}
+
+/* Input tìm kiếm */
+.search-input {
+  border: none; /* Loại bỏ đường viền mặc định */
+  outline: none; /* Loại bỏ viền khi focus */
+  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  font-size: 16px; /* Kích thước chữ */
+  color: #ffffff; /* Màu chữ */
+  background: transparent; /* Nền trong suốt để hiển thị cùng container */
+}
+
+/* Hiệu ứng khi focus */
+.search-container:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Bóng khi hover */
+}
+
+.search-input::placeholder {
+  color: #aaa; /* Màu chữ placeholder */
+  font-style: italic; /* Chữ in nghiêng */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app {
+  display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000;
+  color: #e1e8ed;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  
+}
+
+/* Sidebar Styling */
+.sidebar {
+ 
+  margin-left: 10%;
+  width: 20%;
+  background-color: #000000;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.sidebar__menu {
+  list-style: none;
+  padding: 0;
+  margin-top: -20px;
+}
+
+.sidebar__menu li  {
+  margin: 15px 0;
+  cursor: pointer;
+  color: #e1e8ed;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: color 0.3s;
+  border-radius: 30px;
+  padding: 5px 20px;
+  width: auto;
+
+}
+
+/* Link Styling */
+.sidebar__menu li a {
+  text-decoration: none;
+  color: #e1e8ed; /* Màu mặc định của liên kết */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.sidebar__menu li  {
+  margin: 15px 0;
+  cursor: pointer;
+  color: #e1e8ed;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: color 0.3s;
+  border-radius: 30px;
+  padding: 5px 20px;
+  width: auto;
+  
+}
+
+.sidebar__menu li:hover {
+  color: #cddfe9;
+  background-color: #55595c;
+  padding: 12px 40px;
+  transition: 1s;
+
+}
+
+.sidebar__button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #ffffff;
+  color: rgb(5, 5, 5);
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  width: 250px;
+  transition: background-color 0.3s;
+}
+
+.sidebar__button:hover {
+  background-color: rgb(169, 183, 192);
+}
+
+.sidebar__profile {
+  margin-top: 20px;
+  color: #8899a6;
+  text-align: center;
+}
+
+.sidebar__profile p {
+  margin: 5px 0;
+}
+
+/* Main Content Styling */
+.main {
+ 
+ 
+  overflow-y: auto; /* Cho phép cuộn */
+  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE và Edge */
+  width: 40%;
+
+  overflow-y: auto;
+  border-left: 1px solid #38444d;
+  border-right: 1px solid #38444d;
+}
+
+.main__header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e1e8ed;
+  margin-bottom: 20px;
+  position: fixed;
+  width: 40%;
+  height: 55px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.main__post {
+  background-color: #192734;
+  border: 1px solid #38444d;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.main__post img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.main__post p {
+  color: #e1e8ed;
+  margin-top: 10px;
+}
+
+/* Widgets Styling */
+.widgets {
+  width: 20%;
+  flex: 1;
+  overflow-y: auto; /* Cho phép cuộn */
+  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE và Edge */
+  background-color: #000000;
+  padding: 20px;
+  border-left: 1px solid #38444d;
+}
+
+.widgets__section {
+  margin-bottom: 20px;
+}
+
+.widgets__section h3 {
+  margin-bottom: 10px;
+  color: #e1e8ed;
+  font-size: 18px;
+}
+
+.widgets__section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.widgets__section ul li {
+  margin: 5px 0;
+  cursor: pointer;
+  color: #1da1f2;
+  transition: color 0.3s;
+}
+
+.widgets__section ul li:hover {
+  text-decoration: underline;
+}
+
+.widgets__suggestion {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.widgets__suggestion h3 {
+  color: #8899a6;
+  margin-bottom: 10px;
+}
+
+.widgets__suggestion button {
+  padding: 10px 20px;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.widgets__suggestion button:hover {
+  background-color: #1a91da;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tổng thể container */
+.post-container {
+margin-top: 80px;
+  background-color: #000000; /* Màu nền tối */
+  color: #fff; /* Màu chữ trắng */
+  padding:0 20px;
+  border-bottom:1px solid #333 ;
+  font-family: Arial, sans-serif;
+}
+
+/* Body: Input và các options */
+.post-body {
+  margin-top: 10px;
+}
+.post-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 50%; /* Bo tròn avatar */
+  margin-right: 10px;
+}
+
+.post-textbox {
+  flex: 1;
+  border: none;
+  background-color: #222;
+  color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+}
+
+
+.post-textbox::placeholder {
+  color: #777;
+}
+
+/* Các option phía dưới */
+.post-options {
+  float: left;
+ 
+  margin: 20px 40px;
+  display: flex;
+  gap: 15px;
+  color: #ffffff; /* Màu xanh Twitter */
+  font-size: 15px;
+}
+.post-options i ,.icon-item{
+  cursor: pointer;
+}
+.icon-item :hover {
+  color: #0d8ddc; /* Màu đậm hơn khi hover */
+}
+.post-options i:hover {
+  color: #0d8ddc; /* Màu đậm hơn khi hover */
+}
+
+/* Nút đăng */
+.post-footer {
+  
+  text-align: right;
+  margin-top: 10px;
+}
+
+
+.post-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.post-button:hover {
+  background-color: #444;
+}
+
+/* Phần footer hiển thị bài đăng */
+.post-footer-info {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.post-footer-info a {
+  color: #1da1f2;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.post-footer-info a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+.Premium{
+  margin-top: 50px;
+  border: 1px solid #38444d;
+  width: 300px;
+  height: auto;
+  padding: 20px;
+  line-height: 20px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.Premium h5{
+  font-weight: bold;
+}
+
+/* Nút đăng */
+.post-footerr {
+  
+  text-align: left;
+  margin-top: 10px;
+}
+
+
+.post-buttonn {
+  
+  background-color: #7a7272;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.post-buttonn:hover {
+  background-color: #444;
+}
+
+
+
+.trending{
+  width: 300px;
+  margin-top: 20px;
+  border: 1px solid #38444d;
+  width: 300px;
+  height: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.suggestions{
+  width: 300px;
+  margin-top: 20px;
+  border: 1px solid #38444d;
+  width: 300px;
+  height: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.trending ul,
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trending li,
+.suggestions li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.trending li:last-child,
+.suggestions li:last-child {
+  border-bottom: none;
+}
+
+.topic-title {
+  font-weight: bold;
+}
+
+.topic-posts {
+  font-size: 12px;
+  color: gray;
+}
+
+.show-more {
+  text-decoration: none;
+  color: #1da1f2;
+  font-size: 14px;
+}
+
+.suggestions .suggestion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info .name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.user-info .username {
+  font-size: 12px;
+  color: gray;
+}
+
+.verified {
+  color: #1da1f2;
+  margin-left: 4px;
+}
+
+.follow-btn {
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.follow-btn:hover {
+  background-color: #0d95e8;
+}
+
+
+
+
+
+.post {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  
+}
+
+.post h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.post p {
+  margin: 5px 0;
+}
+
+.post small {
+  color: gray;
+}
+
+.post div {
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+
+.icon-item{
+  margin-top: -5px;
+ 
+}
+
+.post-container-c {
+  width: 100%;
+  margin: 20px auto;
+  padding: 15px;
+ 
+  
+  border-bottom: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+.post-header-c {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-pic-c {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.post-info-c {
+  margin-left: 10px;
+}
+
+.author-name-c {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.username-c,
+.time-c {
+  color: #657786;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.post-content-c {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.post-image-c {
+
+  margin-bottom: 10px;
+}
+
+.content-image-c {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.image-caption-c {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.post-footer-c {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #657786;
+}
+
+.footer-item-c {
+  margin-right: 5px;
+  font-weight: bold;
+}

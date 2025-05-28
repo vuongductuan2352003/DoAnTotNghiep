@@ -1,0 +1,23 @@
+/* src/styles/Login.css */
+
+.auth-links {
+    margin-left: 50px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;             /* Khoảng cách giữa 2 link */
+  }
+  
+  .auth-links a {
+    color: #5f819a;           /* Màu pastel blue-gray, dịu mắt trên nền đen */
+    text-decoration: none;    /* Bỏ gạch chân mặc định */
+    font-size: 0.9rem;        /* Điều chỉnh cỡ chữ nếu muốn */
+    transition: color 0.2s;
+    text-decoration: none ;  /* Hiệu ứng chuyển màu mượt */
+  }
+  
+  .auth-links a:hover {
+    color: #ffffff;           /* Sáng hơn khi hover */
+   
+  }
+  

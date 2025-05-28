@@ -1,0 +1,108 @@
+/* src/pages/GetData/Step10Preference.css */
+
+.step10-root {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 8px 0 8px;
+  text-align: center;
+}
+
+.step10-title {
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: 1.2px;
+  text-shadow: 0 2px 12px #101010c9;
+}
+
+.step10-card {
+  background: #181818;
+  border-radius: 30px;
+  box-shadow: 0 8px 40px #0009;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 16px 18px 16px;
+  margin-bottom: 30px;
+  min-height: 380px;
+  justify-content: center;
+  position: relative;
+}
+
+.step10-img {
+  width: 210px;
+  max-width: 90vw;
+  height: auto;
+  margin: 0 auto 20px auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 18px #2b2b2b99);
+  background: transparent;
+}
+
+.step10-label {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  background: #232323;
+  border-radius: 0 0 18px 18px;
+  padding: 14px 0;
+  width: 100%;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 6px #0004;
+}
+
+.step10-options {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.step10-btn {
+  background: #191919;
+  color: #ff5722;
+  border: none;
+  outline: none;
+  border-radius: 22px;
+  padding: 23px 18px 12px 18px;
+  min-width: 112px;
+  min-height: 98px;
+  font-size: 1.13rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 12px #0003;
+  transition: background 0.13s, color 0.13s, box-shadow 0.13s, transform 0.1s;
+}
+
+.step10-btn:hover, .step10-btn:focus {
+  background: #232323;
+  color: #fff;
+  box-shadow: 0 4px 22px #ff572244;
+  transform: translateY(-3px) scale(1.035);
+}
+
+.step10-btn.like:hover { color: #35fa84; }
+.step10-btn.dislike:hover { color: #ff2222; }
+.step10-btn.neutral:hover { color: #ffd135; }
+
+.step10-btn span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 7px;
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 660px) {
+  .step10-root { max-width: 98vw; padding: 16px 1vw; }
+  .step10-card { min-height: 240px; padding: 16px 3vw 10px 3vw;}
+  .step10-img { width: 150px; }
+  .step10-options { gap: 10px; }
+  .step10-btn { min-width: 80px; min-height: 72px; padding: 13px 8px 9px 8px;}
+  .step10-title { font-size: 1.55rem; }
+  .step10-label { font-size: 1.03rem; padding: 9px 0; }
+}

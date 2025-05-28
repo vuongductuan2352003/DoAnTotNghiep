@@ -1,0 +1,36 @@
+/* Step4: Some full-screen container + custom range thumb */
+.step4-container {
+  height: 100vh;
+  width: 1300px;
+  color: #fff;
+  margin: 0 100px;
+  padding-top: 100px;
+}
+
+/* Chrome, Safari */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 4px;
+  height: 4px;
+  background: #2196f3;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #1976d2;
+  box-shadow: 0 0 5px #2196f3;
+  transition: background-color 0.3s ease;
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  background: #42a5f5;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #2196f3;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #1976d2;
+  box-shadow: 0 0 5px #2196f3;
+  transition: background-color 0.3s ease;
+}

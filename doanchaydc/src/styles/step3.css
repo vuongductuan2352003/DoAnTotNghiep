@@ -1,0 +1,147 @@
+/* Step3: Body Fat Slider + Manual Inputs */
+.step3-container {
+  width: 1300px;
+  margin: 10px 100px;
+  color: #fff;
+}
+
+.step3-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 100px;
+  color: #fff;
+}
+.back-icon { cursor: pointer; }
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #807d7d;
+  margin: 0 1rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.filler {
+  height: 100%;
+  background: #f60;
+  width: var(--progress, 0%);
+  transition: width 0.3s ease;
+}
+.step-counter {
+  min-width: 50px;
+  text-align: right;
+}
+
+.step3-body {
+  display: flex;
+  flex: 1;
+  height: auto;
+}
+
+.image-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.body-img {
+  height: 550px;
+  margin-left: 280px;
+}
+
+.form-panel {
+  flex: 1;
+  padding: 2rem;
+  background: #111;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+.mode-toggle {
+  margin-bottom: 1rem;
+}
+.mode-toggle button {
+  margin-right: 1rem;
+  padding: .5rem 1rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.mode-toggle .active {
+  background: #f60;
+}
+
+.slider-wrapper {
+  position: relative;
+  height: 80px;
+  margin-bottom: 2rem;
+}
+.fat-slider {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  opacity: 0;
+  cursor: pointer;
+}
+/* ticks & labels */
+.tick {
+  position: absolute;
+  top: 40px;
+  width: 2px;
+  height: 12px;
+  background: #66301d;
+  transform: translateX(-50%);
+}
+.tick-label {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: .9rem;
+}
+.circle {
+  position: absolute;
+  top: 45px;
+  width: 20px;
+  height: 20px;
+  background: #f60;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.tooltip {
+  position: absolute;
+  top: -24px;
+  transform: translateX(-50%);
+  background: #333;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: .8rem;
+  pointer-events: none;
+}
+
+.manual-inputs {
+  margin-bottom: 2rem;
+}
+.calculated {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.continue-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #f60;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.continue-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}

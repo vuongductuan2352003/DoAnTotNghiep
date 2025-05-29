@@ -3,26 +3,26 @@ import { useOutletContext } from 'react-router-dom';
 import '../../styles/Step33.css';
 
 const OPTIONS = [
-  { value: 'lt5', label: 'Ít hơn 5 giờ' },
-  { value: '5_6', label: '5-6 giờ 😪' },
-  { value: '7_8', label: '7-8 giờ 🌙' },
-  { value: 'gt8', label: 'Hơn 8 giờ 😴' },
+  { value: 'Ít hơn 5 giờ', label: 'Ít hơn 5 giờ' },
+  { value: '5-6 giờ 😪', label: '5-6 giờ 😪' },
+  { value: '7-8 giờ 🌙', label: '7-8 giờ 🌙' },
+  { value: 'Hơn 8 giờ 😴', label: 'Hơn 8 giờ 😴' },
 ];
 
 const RECOMMEND = {
-  lt5: {
+  'Ít hơn 5 giờ': {
     title: 'Bạn đang thiếu ngủ!',
     msg: 'Ngủ dưới 5 tiếng mỗi đêm sẽ gây hại nghiêm trọng cho sức khỏe và hiệu quả tập luyện. Hãy cố gắng ngủ đủ 7-8 giờ mỗi ngày để phục hồi cơ thể tốt hơn.',
   },
-  '5_6': {
+  '5-6 giờ 😪': {
     title: 'Bạn ngủ chưa đủ!',
     msg: '5-6 giờ/ngày vẫn chưa đủ cho cơ thể hồi phục và phát triển. Hãy sắp xếp thời gian để ngủ đủ từ 7-8 giờ/ngày giúp tăng sức khỏe, hiệu quả học tập và tập luyện.',
   },
-  '7_8': {
+  '7-8 giờ 🌙': {
     title: 'Tuyệt vời!',
     msg: 'Bạn ngủ đủ 7-8 giờ/ngày – đây là mức lý tưởng giúp cơ thể phục hồi và phát triển tốt. Tiếp tục duy trì thói quen này nhé!',
   },
-  gt8: {
+  'Hơn 8 giờ 😴': {
     title: 'Rất tốt!',
     msg: 'Bạn đang ngủ nhiều hơn 8 giờ/ngày. Điều này rất tốt, nhưng nếu ngủ quá nhiều mà vẫn mệt mỏi, hãy kiểm tra chất lượng giấc ngủ và sinh hoạt nhé!',
   },
@@ -31,6 +31,7 @@ const RECOMMEND = {
 export default function Step33Sleep() {
   const { formData, go, currentStep } = useOutletContext();
   const [selected, setSelected] = useState(() => {
+    // lấy giá trị tiếng Việt có dấu nếu có
     return formData.sleep || localStorage.getItem('sleep') || '';
   });
   const [showPopup, setShowPopup] = useState(false);
@@ -49,7 +50,6 @@ export default function Step33Sleep() {
       setSelected(formData.sleep);
       localStorage.setItem('sleep', formData.sleep);
     }
-    // eslint-disable-next-line
   }, [formData.sleep]);
 
   // Auto scroll tới popup khi hiện ra

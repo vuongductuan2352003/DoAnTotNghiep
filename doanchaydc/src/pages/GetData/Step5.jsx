@@ -5,7 +5,6 @@ import { useOutletContext } from "react-router-dom";
 import images from "../../assets/loadImg.js";
 import '../../styles/step5.css';
 
-// Key lưu draft formData
 const STORAGE_KEY = 'formData';
 
 export default function Step5Circumference() {
@@ -59,8 +58,8 @@ export default function Step5Circumference() {
   // personal info
   const fullName = formData.fullName || "--";
   const age      = formData.age || "--";
-  const gender   = formData.gender === "female" ? "female" : "male";
-  const avatar   = gender === "female"
+  const gender   = formData.gender === "Nữ" ? "Nữ" : "Nam";
+  const avatar   = gender === "Nữ"
     ? images["Female.png"]
     : images["male.png"];
 
@@ -70,12 +69,12 @@ export default function Step5Circumference() {
 
   const buildUpdated = () => ({
     ...formData,
-    chest: chest,
-    wrist: wrist,
-    arm: arm,
-    thigh: thigh,
-    ankle: ankle,
-    skinfold: skinfold,
+    chest,
+    wrist,
+    arm,
+    thigh,
+    ankle,
+    skinfold,
     bloodPressure: bp,
     restingHeartRate: hr,
     bloodGlucose: glucose,
@@ -94,16 +93,16 @@ export default function Step5Circumference() {
 
   // form fields config
   const fields = [
-    { label: "Vòng ngực (cm)",         value: chest,    onChange: e=>setChest(e.target.value),    type: "number", placeholder: "95" },
-    { label: "Vòng cổ tay (cm)",       value: wrist,    onChange: e=>setWrist(e.target.value),    type: "number", placeholder: "16" },
-    { label: "Vòng bắp tay (cm)",      value: arm,      onChange: e=>setArm(e.target.value),      type: "number", placeholder: "35" },
-    { label: "Vòng đùi (cm)",          value: thigh,    onChange: e=>setThigh(e.target.value),    type: "number", placeholder: "55" },
-    { label: "Vòng cổ chân (cm)",      value: ankle,    onChange: e=>setAnkle(e.target.value),    type: "number", placeholder: "22" },
-    { label: "Độ dày nếp gấp da (mm)",  value: skinfold, onChange: e=>setSkinfold(e.target.value), type: "number", placeholder: "10" },
-    { label: "Huyết áp (mmHg)",        value: bp,       onChange: e=>setBp(e.target.value),       type: "text",   placeholder: "120/80" },
-    { label: "Nhịp tim nghỉ ngơi (bpm)",value: hr,       onChange: e=>setHr(e.target.value),       type: "number", placeholder: "60" },
-    { label: "Đường huyết (mmol/L)",   value: glucose,  onChange: e=>setGlucose(e.target.value),  type: "number", placeholder: "5.2" },
-    { label: "Lipid Profile",          value: lipid,    onChange: e=>setLipid(e.target.value),    type: "text",   placeholder: "LDL 100, TG 150" },
+    { key: "chest",           label: "Vòng ngực (cm)",         value: chest,    onChange: e=>setChest(e.target.value),    type: "number", placeholder: "95" },
+    { key: "wrist",           label: "Vòng cổ tay (cm)",       value: wrist,    onChange: e=>setWrist(e.target.value),    type: "number", placeholder: "16" },
+    { key: "arm",             label: "Vòng bắp tay (cm)",      value: arm,      onChange: e=>setArm(e.target.value),      type: "number", placeholder: "35" },
+    { key: "thigh",           label: "Vòng đùi (cm)",          value: thigh,    onChange: e=>setThigh(e.target.value),    type: "number", placeholder: "55" },
+    { key: "ankle",           label: "Vòng cổ chân (cm)",      value: ankle,    onChange: e=>setAnkle(e.target.value),    type: "number", placeholder: "22" },
+    { key: "skinfold",        label: "Độ dày nếp gấp da (mm)", value: skinfold, onChange: e=>setSkinfold(e.target.value), type: "number", placeholder: "10" },
+    { key: "bloodPressure",   label: "Huyết áp (mmHg)",        value: bp,       onChange: e=>setBp(e.target.value),       type: "text",   placeholder: "120/80" },
+    { key: "restingHeartRate",label: "Nhịp tim nghỉ ngơi (bpm)",value: hr,      onChange: e=>setHr(e.target.value),       type: "number", placeholder: "60" },
+    { key: "bloodGlucose",    label: "Đường huyết (mmol/L)",   value: glucose,  onChange: e=>setGlucose(e.target.value),  type: "number", placeholder: "5.2" },
+    { key: "lipidProfile",    label: "Lipid Profile",           value: lipid,    onChange: e=>setLipid(e.target.value),    type: "text",   placeholder: "LDL 100, TG 150" },
   ];
 
   return (
@@ -112,7 +111,7 @@ export default function Step5Circumference() {
       <div className="c-avatar">
         <img src={avatar} alt="Avatar" />
         <div className="c-avatar-name">{fullName}</div>
-        <div className="c-avatar-info">{gender === "female" ? "Nữ" : "Nam"}, {age} tuổi</div>
+        <div className="c-avatar-info">{gender}, {age} tuổi</div>
       </div>
 
       {/* Form */}

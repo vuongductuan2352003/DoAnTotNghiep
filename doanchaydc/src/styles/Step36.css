@@ -1,0 +1,105 @@
+.step36sum-root {
+  max-width: 820px;
+  margin: 40px auto 0;
+  padding: 36px 16px 64px 16px;
+  background: #111;
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: 0 8px 36px 0 #000b  ;
+  font-family: 'Segoe UI', 'Montserrat', sans-serif;
+  animation: fadeInBig 0.6s cubic-bezier(.32,1.12,.58,.91);
+  position: relative;
+}
+@keyframes fadeInBig { from { opacity: 0; transform: scale(.95) translateY(50px);} to { opacity: 1; transform: scale(1) translateY(0);} }
+
+.step36sum-bodychange {
+  display: flex; align-items: flex-end; justify-content: center; gap: 36px;
+  margin-bottom: 32px; margin-top: 0;
+}
+.step36sum-bodybox { background: #191919; border-radius: 14px; padding: 8px 20px 12px 20px; display: flex; flex-direction: column; align-items: center; min-width: 150px;}
+.step36sum-bodyimg { width: 92px; height: 160px; object-fit: contain; }
+.step36sum-bodystats { font-size: 1.1rem; line-height: 1.7;}
+.step36sum-bodytitle { font-size: 1.2rem; font-weight: bold; margin-bottom: 6px; color: #fff; }
+.step36sum-fat, .step36sum-age { color: #ff8722; font-size: 1.17em;}
+.step36sum-fat.orange, .step36sum-age.orange { color: #FF6223;}
+.step36sum-muscle { font-size: 1.18em; margin-right: 3px; }
+
+.step36sum-arrows { font-size: 3.5rem; font-weight: bold; color: #8884; margin: 0 12px 30px 12px; align-self: center; }
+
+.step36sum-mainTitle {
+  font-size: 2.2rem; font-weight: 900;
+  margin: 32px 0 26px 0; letter-spacing: -.5px; text-shadow: 0 2px 16px #0008;
+}
+.step36sum-summarybox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+.step36sum-bmi {
+  flex: 2 1 280px;
+  background: #18191c;
+  border-radius: 14px;
+  padding: 20px 30px 26px 30px;
+  box-shadow: 0 2px 16px #0003;
+  min-width: 270px;
+  margin-bottom: 10px;
+}
+.step36sum-bmititle { font-size: 1rem; opacity: 0.9; margin-bottom: 4px;}
+.step36sum-bminum { font-size: 2.2rem; font-weight: bold; letter-spacing: 1px; margin-bottom: 7px; }
+.step36sum-bmi-bar-wrap { margin-bottom: 7px; }
+.step36sum-bmi-bar {
+  display: flex; position: relative; height: 14px; border-radius: 7px;
+  background: #444; margin-bottom: 4px; overflow: hidden;
+}
+.bmi-segment.under   { background: #2ab2fa; width: 20%; }
+.bmi-segment.normal  { background: #7be288; width: 28%; }
+.bmi-segment.over    { background: #ffb74d; width: 12%; }
+.bmi-segment.obese   { background: #ff5252; width: 40%; }
+.bmi-indicator {
+  position: absolute; top: -5px; width: 2.2px; height: 24px; background: #fff; border-radius: 2px;
+  box-shadow: 0 0 8px #fff;
+}
+.step36sum-bmi-labels { display: flex; justify-content: space-between; font-size: .95rem; color: #aaa; opacity: 0.75;}
+.step36sum-bmi-desc { margin-top: 4px; font-size: 1.07rem; min-height: 44px;}
+.step36sum-bmi-desc .desc { font-size: 0.96rem; opacity: 0.9;}
+.green { color: #7be288;}
+.red { color: #ff5252;}
+.orange { color: #ff8722;}
+
+.step36sum-miniwrap { flex: 1 1 170px; display: flex; flex-direction: column; gap: 18px;}
+.step36sum-calbox, .step36sum-waterbox {
+  background: #19191c; border-radius: 12px; padding: 13px 18px; margin-bottom: 0;
+  box-shadow: 0 2px 12px #0001;
+  min-width: 150px;
+}
+.step36sum-minititle { font-size: 0.97rem; opacity: 0.92; margin-bottom: 2px;}
+.step36sum-calnum, .step36sum-waternum { font-size: 1.5rem; font-weight: bold; margin-bottom: 2px;}
+.step36sum-mini-bar { height: 8px; border-radius: 4px; background: #444; width: 100%; margin-top: 4px;}
+.step36sum-mini-barfill { background: #ff8722; height: 100%; border-radius: 4px; transition: width 0.5s cubic-bezier(.38,.4,.55,1.2);}
+.step36sum-water-glasswrap { display: flex; gap: 2px; margin-top: 2px;}
+.glass { font-size: 1.28em; opacity: 0.27; }
+.glass.full { opacity: 1; filter: drop-shadow(0 0 5px #2ab2fa44);}
+.step36sum-plan-wrap { margin-top: 36px;}
+.step36sum-plan-title { font-size: 1.15rem; margin-bottom: 20px; }
+.step36sum-plan-grid { display: flex; flex-wrap: wrap; gap: 20px;}
+.step36sum-plan-item { background: #16171b; border-radius: 10px; padding: 14px 20px; min-width: 170px; font-size: 1.07rem; font-weight: 500;}
+.step36sum-plan-item span { display: block; font-size: 0.99em; font-weight: 400; color: #bbb; margin-bottom: 2px;}
+.step36sum-plan-item b { font-size: 1.2em; color: #ff8722;}
+
+.step36sum-goalswrap { margin-top: 32px;}
+.step36sum-goalstitle { font-size: 1.13rem; margin-bottom: 8px;}
+.step36sum-goalslist { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 0; padding: 0;}
+.step36sum-goalslist li { list-style: none; font-size: 1.07rem; color: #fff; display: flex; align-items: center;}
+.step36sum-goalslist span { margin-right: 5px; color: #7be288;}
+.step36sum-btn {
+  margin-top: 36px;
+  padding: 16px 50px;
+  background: linear-gradient(90deg,#ff8722 0%, #ff5252 100%);
+  color: #fff; font-size: 1.18rem; font-weight: 700;
+  border: none; border-radius: 50px; box-shadow: 0 2px 18px #0005;
+  cursor: pointer; transition: transform .18s cubic-bezier(.5,2,0.6,1.2), box-shadow .23s;
+}
+.step36sum-btn:active { transform: scale(.97);}
+.step36sum-btn:hover { box-shadow: 0 6px 24px #ff872299, 0 2px 24px #0008;}

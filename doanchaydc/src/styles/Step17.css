@@ -1,72 +1,100 @@
-
-/* File: src/styles/Step17.css */
-:root {
-  --bg-body: #121212;
-  --card-bg: #1e1e1e;
-  --card-hover: #333;
-  --card-selected: #e67e22;
-  --text-primary: #ecf0f1;
-  --text-secondary: #95a5a6;
-  --accent: #e67e22;
-  --radius: 8px;
-  --transition: 0.3s;
-}
-
-body {
-  background: var(--bg-body);
-}
+/* Step17.css */
 
 .step17-container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 0 16px;
+  max-width: 560px;
+  margin: 64px auto 0 auto;
+  padding: 36px 18px 28px;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
   text-align: center;
-  color: var(--text-primary);
+  animation: fadeInUp 0.5s cubic-bezier(.56,.04,.28,1.21);
+  margin-top: 0px;
 }
 
 .step17-title {
-  font-size: 1.75rem;
-  margin-bottom: 24px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 36px;
+  letter-spacing: -1px;
+  animation: fadeInDown 0.8s cubic-bezier(.62,.04,.36,1.29);
 }
 
 .step17-options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 32px;
+  gap: 22px;
 }
 
 .step17-option {
+  background: #23252b;
+  color: #e0e4ed;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 22px 30px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  background: var(--card-bg);
-  padding: 12px 16px;
-  border-radius: var(--radius);
-  cursor: pointer;
+  gap: 22px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: 
+    background 0.25s cubic-bezier(.53,.12,.24,1.05),
+    transform 0.19s cubic-bezier(.51,.02,.29,1.11),
+    color 0.2s;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.4s var(--transition) forwards;
-  transition: background var(--transition);
+  transform: translateY(16px);
+  animation: fadeInOption 0.5s cubic-bezier(.53,.16,.44,1.12) forwards;
+  border: 2px solid transparent;
 }
 
-.step17-option:hover {
-  background: var(--card-hover);
-}
-
-.step17-icon {
-  font-size: 1.5rem;
-  margin-right: 12px;
-  color: var(--accent);
+.step17-option .step17-icon {
+  font-size: 2.1rem;
+  color: #ffd239;
+  filter: drop-shadow(0 2px 6px #20210570);
   flex-shrink: 0;
+  transition: color 0.22s;
+}
+
+.step17-option:hover, .step17-option.selected {
+  background: linear-gradient(95deg, #292d35 55%, #fd6100 110%);
+  color: #fff;
+  border: 2px solid #fd6100;
+  transform: scale(1.035);
+  box-shadow: 0 4px 24px 0 #fd610040;
+}
+
+.step17-option.selected .step17-icon,
+.step17-option:hover .step17-icon {
+  color: #fd6100;
 }
 
 .step17-label {
-  font-size: 1rem;
+  flex: 1;
+  text-align: left;
 }
 
-@keyframes fadeInUp {
+@keyframes fadeInOption {
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(48px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-28px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.step17-option.selected {
+  background: linear-gradient(95deg, #23272f 65%, #fd6100 120%);
+  border: 2.5px solid #fd6100;
+  color: #fff;
+  transform: scale(1.03);
+  box-shadow: 0 4px 28px 0 #fd610049;
+}
+.step17-option.selected .step17-icon {
+  color: #fd6100;
 }

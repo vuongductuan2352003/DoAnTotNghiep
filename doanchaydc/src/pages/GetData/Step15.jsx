@@ -9,29 +9,48 @@ const weekdays = [
   'Thứ năm', 'Thứ sáu', 'Thứ bảy', 'Chủ nhật'
 ];
 
+const NONE = 'none';
+
 export default function Step15() {
   const { formData, go, currentStep } = useOutletContext();
   const [selected, setSelected] = useState(formData.weeklySessions || []);
   const [showAdvice, setShowAdvice] = useState(false);
 
+  // Toggle logic theo yêu cầu
   const toggleDay = (day) => {
-    setSelected(sel =>
-      sel.includes(day)
-        ? sel.filter(x => x !== day)
-        : [...sel, day]
-    );
+    if (day === NONE) {
+      setSelected([NONE]);
+    } else {
+      setSelected(sel => {
+        // Nếu đang chọn "Không chắc", bỏ nó ra khỏi selected
+        const filtered = sel.filter(x => x !== NONE);
+        // Toggle ngày
+        if (filtered.includes(day)) {
+          return filtered.filter(x => x !== day);
+        } else {
+          return [...filtered, day];
+        }
+      });
+    }
   };
 
   // Khi advice bật lên, scroll vào view
   useEffect(() => {
     if (showAdvice) {
-      document.querySelector('.step15-advice').scrollIntoView({ 
-        behavior: 'smooth', block: 'start' 
+      document.querySelector('.step15-advice').scrollIntoView({
+        behavior: 'smooth', block: 'start'
       });
     }
   }, [showAdvice]);
 
   const handleContinue = () => {
+    // Nếu chọn "Không chắc", chuyển luôn bước không hiện advice
+    if (selected.length === 1 && selected[0] === NONE) {
+      const updated = { ...formData, weeklySessions: selected };
+      window.localStorage.setItem('formData', JSON.stringify(updated));
+      go(`step${currentStep + 1}`, updated);
+      return;
+    }
     if (!showAdvice) {
       // bước 1: hiển thị lời khuyên
       if (selected.length === 0) return;
@@ -54,7 +73,7 @@ export default function Step15() {
       </p>
 
       <div className="step15-list">
-        {weekdays.map((d,i) => (
+        {weekdays.map((d, i) => (
           <div
             key={d}
             className={`step15-item${selected.includes(d) ? ' selected' : ''}`}
@@ -70,11 +89,11 @@ export default function Step15() {
         ))}
 
         <div
-          className={`step15-item none${selected.includes('none') ? ' selected' : ''}`}
-          onClick={() => toggleDay('none')}
+          className={`step15-item none${selected.includes(NONE) ? ' selected' : ''}`}
+          onClick={() => toggleDay(NONE)}
           style={{ animationDelay: `${weekdays.length * 0.05 + 0.1}s` }}
         >
-          {selected.includes('none')
+          {selected.includes(NONE)
             ? <FaCheck className="icon-check" />
             : <FaTimesCircle className="icon-box" />
           }
@@ -82,13 +101,13 @@ export default function Step15() {
         </div>
       </div>
 
-      {showAdvice && (
+      {showAdvice && !(selected.length === 1 && selected[0] === NONE) && (
         <div className="step15-advice">
           <FaCalendarAlt className="advice-icon" />
           <div className="advice-text">
             <strong>Những ngày nghỉ ngơi rất quan trọng!</strong>
             <p>
-              Với mỗi lần tập luyện, bạn sẽ tạo ra những vết rách cực nhỏ trong các mô cơ 
+              Với mỗi lần tập luyện, bạn sẽ tạo ra những vết rách cực nhỏ trong các mô cơ
               của mình. Khi bạn nghỉ ngơi, cơ bắp của bạn bắt đầu lành lại và phát triển mạnh mẽ hơn.
             </p>
           </div>
@@ -100,7 +119,9 @@ export default function Step15() {
         onClick={handleContinue}
         disabled={!showAdvice && selected.length === 0}
       >
-        {showAdvice ? 'Đã hiểu →' : 'Tiếp tục →'}
+        {showAdvice && !(selected.length === 1 && selected[0] === NONE)
+          ? 'Đã hiểu →'
+          : 'Tiếp tục →'}
       </button>
     </div>
   );

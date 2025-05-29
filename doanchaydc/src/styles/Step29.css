@@ -95,7 +95,7 @@
   padding: 18px 22px;
   background: #161616;
   border-radius: 13px;
-  border: 2px solid #ff5722;
+  border: 2px solid #ffffff;
   color: #fff;
   margin-top: 18px;
   font-weight: 600;
@@ -120,4 +120,12 @@
   font-size: 1.23em;
   color: #ff5722;
 
+}
+.step29-option.selected {
+  border-color: #ff5722;
+  background: #241915;
+  color: #ff5722;
+  box-shadow: 0 2px 18px 0 rgba(255,87,34,0.11);
+  transform: scale(1.018);
+  z-index: 2;
 }

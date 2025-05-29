@@ -1,20 +1,34 @@
-// src/pages/GetData/Step8.jsx
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { ResponsiveContainer, LineChart, Line, Area, XAxis, YAxis, LabelList } from 'recharts';
 import '../../styles/Step8.css';
 
+// Map key-value mục tiêu giữa tiếng Anh và tiếng Việt
+const goalMap = {
+  maintain: "Duy Trì Cân Nặng",
+  gain_muscle: "Tăng Cơ Bắp",
+  gain_weight: "Tăng Cân",
+  lose_weight: "Giảm Cân",
+  reduce_fat: "Giảm Mỡ"
+};
+const goalValueToKey = Object.fromEntries(Object.entries(goalMap).map(([k, v]) => [v, k]));
+
 export default function Step8() {
   const { formData, go, currentStep } = useOutletContext();
   const currentWeight = Number(formData.weight);
   const targetWeight = Number(formData.targetWeight);
+
+  // goal lúc này là value tiếng Việt!
   const goal = formData.goal;
 
-  const isMaintainOrMuscle = goal === 'maintain' || goal === 'gain_muscle';
+  // Chuẩn hóa key để xử lý logic (do goal trong formData là tiếng Việt)
+  const goalKey = goalValueToKey[goal];
+
+  const isMaintainOrMuscle = goalKey === 'maintain' || goalKey === 'gain_muscle';
 
   // Nếu có targetWeight thì tính ngày dự kiến, nếu không lấy 60 ngày cho maintain/gain_muscle
   const diff = Math.abs(targetWeight - currentWeight);
-  const speedPerWeek = goal === 'gain_weight' ? 0.375 : 0.75;
+  const speedPerWeek = goalKey === 'gain_weight' ? 0.375 : 0.75;
   const durationWeeks = targetWeight ? Math.ceil(diff / speedPerWeek) : 8;
   const today = new Date();
   const endDate = new Date(today);
@@ -89,7 +103,7 @@ export default function Step8() {
       <div className="step8-desc">
         {isMaintainOrMuscle ? (
           <>
-            {goal === 'maintain'
+            {goalKey === 'maintain'
               ? <>Bạn đang <b>duy trì cân nặng hiện tại</b>. Tiếp tục lối sống và luyện tập để giữ vững vóc dáng này!</>
               : <>Bạn đang <b>tăng cơ bắp</b>. Hãy tập trung vào luyện tập và dinh dưỡng để cải thiện các chỉ số cơ bắp!</>
             }

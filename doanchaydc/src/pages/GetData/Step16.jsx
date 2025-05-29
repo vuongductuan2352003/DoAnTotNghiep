@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { FaRegClock, FaThumbsUp } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import '../../styles/Step16.css';
 
 const options = [
@@ -12,12 +12,32 @@ const options = [
   { key: 'auto',  label: 'Hãy để Fitness & Health quyết định', icon: <FaThumbsUp /> },
 ];
 
+function capitalizeFirst(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// map value về key (khi quay lại form)
+function getInitKey(value) {
+  if (!value) return '';
+  if (value === 'auto') return 'auto';
+  const found = options.find(opt => opt.label === value);
+  return found ? found.key : '';
+}
+
 export default function Step16() {
   const { formData, go, currentStep } = useOutletContext();
-  const [selected, setSelected] = useState(formData.duration || '');
+  const [selected, setSelected] = useState(getInitKey(formData.duration));
 
   const handleSelect = (key) => {
-    const updated = { ...formData, duration: key };
+    let durationValue;
+    if (key === 'auto') {
+      durationValue = 'auto';
+    } else {
+      const found = options.find(opt => opt.key === key);
+      durationValue = found ? capitalizeFirst(found.label) : '';
+    }
+    const updated = { ...formData, duration: durationValue };
     window.localStorage.setItem('formData', JSON.stringify(updated));
     go(`step${currentStep + 1}`, updated);
   };

@@ -3,27 +3,27 @@ import { useOutletContext } from 'react-router-dom';
 import '../../styles/Step32.css';
 
 const FEEDBACK = {
-  lt2: {
+  "Dưới 0,5 lít": {
     title: "Uống nước là điều cần thiết",
     desc: "Nếu không đủ nước, cơ thể bạn sẽ không thể hoạt động ở mức tối đa. Fitness & Health sẽ nhắc bạn uống đủ nước.",
     percent: null
   },
-  '2_6': {
+  "0,5–1,5 lít": {
     title: "Bạn uống nhiều nước hơn 50% người dùng",
     desc: "Fitness & Health sẽ nhắc bạn uống đủ nước.<br/><span class='note'>người dùng Fitness & Health đã làm bài kiểm tra</span>",
     percent: 50
   },
-  '7_10': {
+  "1,5–2,5 lít": {
     title: "Ôi! Thật ấn tượng!",
     desc: "Bạn uống nhiều nước hơn 72% người dùng. Tiếp tục phát huy nhé!<br/><span class='note'>người dùng Fitness & Health đã làm bài kiểm tra</span>",
     percent: 72
   },
-  gt10: {
+  "Trên 2,5 lít": {
     title: "Ôi! Thật ấn tượng!",
     desc: "Bạn uống nhiều nước hơn 92% người dùng. Tiếp tục phát huy nhé!<br/><span class='note'>người dùng Fitness & Health đã làm bài kiểm tra</span>",
     percent: 92
   },
-  tea_coffee_only: {
+  "Tôi chỉ uống cà phê hoặc trà": {
     title: "Uống nước là điều cần thiết",
     desc: "Nếu không đủ nước, cơ thể bạn sẽ không thể hoạt động ở mức tối đa. Fitness & Health sẽ nhắc bạn uống đủ nước.",
     percent: null

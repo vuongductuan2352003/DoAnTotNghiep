@@ -11,14 +11,24 @@ const options = [
   { key: 'leg',   label: 'Đôi chân mảnh khảnh', img: images['highlight-leg.png'] },
 ];
 
+// Helper: map từ value tiếng Việt sang key khi back lại form (cho phép reload đúng option)
+function getInitKeys(regionFocus) {
+  if (!regionFocus) return [];
+  if (Array.isArray(regionFocus)) {
+    // Nếu là array value tiếng Việt, convert sang key
+    return regionFocus.map(v => {
+      const found = options.find(opt => opt.label === v);
+      return found ? found.key : null;
+    }).filter(Boolean);
+  }
+  return [];
+}
+
 export default function Step18Focus() {
   const { formData, go, currentStep } = useOutletContext();
 
-  // Luôn khởi tạo selected như một array
-  const initial = Array.isArray(formData.regionFocus)
-    ? formData.regionFocus
-    : [];
-  const [selected, setSelected] = useState(initial);
+  // Lấy lại keys từ value tiếng Việt nếu có
+  const [selected, setSelected] = useState(getInitKeys(formData.regionFocus));
 
   const toggle = (key) => {
     setSelected((sel) =>
@@ -27,8 +37,11 @@ export default function Step18Focus() {
   };
 
   const handleContinue = () => {
-    // Luôn lưu mảng
-    const regionFocus = [...selected];
+    // Lưu array label tiếng Việt, luôn viết hoa chữ đầu
+    const regionFocus = selected.map(key => {
+      const found = options.find(opt => opt.key === key);
+      return found ? found.label.charAt(0).toUpperCase() + found.label.slice(1) : '';
+    }).filter(Boolean);
     const updated = { ...formData, regionFocus };
     window.localStorage.setItem('formData', JSON.stringify(updated));
     go(`step${currentStep + 1}`, updated);
@@ -44,9 +57,7 @@ export default function Step18Focus() {
         {options.map((o, i) => (
           <div
             key={o.key}
-            className={`step18-focus-card${
-              selected.includes(o.key) ? ' selected' : ''
-            }`}
+            className={`step18-focus-card${selected.includes(o.key) ? ' selected' : ''}`}
             onClick={() => toggle(o.key)}
             style={{ animationDelay: `${0.1 + i * 0.1}s` }}
           >

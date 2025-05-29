@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import '../../styles/Step35.css';
 
 const FOOD_ICONS = {
-  // Rau
   'Bông cải xanh': '🥦', 'Súp lơ': '🥦', 'Hành': '🧅', 'Ớt chuông': '🫑',
   'Cà tím': '🍆', 'Bắp cải': '🥬', 'Măng tây': '🥬', 'Rau chân vịt': '🥗',
   'Quả dưa chuột': '🥒', 'Cà chua': '🍅',
@@ -45,68 +45,75 @@ const GROUPS = [
   }
 ];
 
-const STORAGE_KEY = 'foodPreferences';
-const AUTO_KEY = 'autoChooseFood';
+export default function Step35Preference() {
+  const { formData, go, currentStep } = useOutletContext();
 
-export default function Step35Preference({ formData, go, currentStep }) {
+  // Nếu quay lại: auto thì set true, foodPreferences là đầy đủ, ngược lại đọc lại từ formData
+  const [auto, setAuto] = useState(!!formData.autoChooseFood);
   const [selected, setSelected] = useState(() => {
-    return formData?.foodPreferences ||
-      JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  });
-  const [auto, setAuto] = useState(() => {
-    return formData?.autoChooseFood === true ||
-      localStorage.getItem(AUTO_KEY) === 'true';
+    if (formData.autoChooseFood) {
+      // Nếu auto, khởi tạo full
+      const all = {};
+      GROUPS.forEach(g => { all[g.title] = g.items.slice(); });
+      return all;
+    }
+    // Nếu có chọn tay thì đọc lại
+    return formData.foodPreferences || {};
   });
 
+  // Khi bật/tắt auto, đồng bộ selected đúng chuẩn
   useEffect(() => {
-    // Nếu có dữ liệu formData => sync lại local
-    if (formData?.foodPreferences) {
-      setSelected(formData.foodPreferences);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(formData.foodPreferences));
+    if (auto) {
+      const all = {};
+      GROUPS.forEach(g => { all[g.title] = g.items.slice(); });
+      setSelected(all);
+    } else {
+      setSelected({});
     }
-    if (formData?.autoChooseFood !== undefined) {
-      setAuto(formData.autoChooseFood);
-      localStorage.setItem(AUTO_KEY, formData.autoChooseFood ? 'true' : 'false');
+  }, [auto]);
+
+  // Nếu formData thay đổi (quay lại từ step sau)
+  useEffect(() => {
+    if (formData.autoChooseFood) {
+      setAuto(true);
+      const all = {};
+      GROUPS.forEach(g => { all[g.title] = g.items.slice(); });
+      setSelected(all);
+    } else {
+      setAuto(false);
+      setSelected(formData.foodPreferences || {});
     }
-    // eslint-disable-next-line
   }, [formData]);
 
-  // Nếu bật auto -> chọn hết
- useEffect(() => {
-  if (auto) {
-    // Bật auto: chọn tất cả
-    const all = {};
-    GROUPS.forEach(g => {
-      all[g.title] = g.items.slice();
-    });
-    setSelected(all);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-    localStorage.setItem(AUTO_KEY, 'true');
-  } else {
-    // Tắt auto: bỏ chọn hết
-    setSelected({});
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
-    localStorage.setItem(AUTO_KEY, 'false');
-  }
-}, [auto]);
+  // Chọn/bỏ từng món ăn
   const toggleItem = (group, item) => {
-    if (auto) return; // Không cho chọn khi auto bật
+    if (auto) return; // Không chọn tay khi auto
     setSelected(prev => {
       const groupItems = prev[group] || [];
-      const exist = groupItems.includes(item);
-      const updated = exist
+      const exists = groupItems.includes(item);
+      let updated = exists
         ? groupItems.filter(i => i !== item)
         : [...groupItems, item];
-      const result = { ...prev, [group]: updated };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
-      return result;
+      // Xoá group nếu rỗng
+      const next = { ...prev, [group]: updated };
+      if (updated.length === 0) delete next[group];
+      return next;
     });
   };
 
+  // Ấn tiếp tục
   const handleContinue = () => {
+    let toSave = {};
+    if (auto) {
+      GROUPS.forEach(g => {
+        toSave[g.title] = g.items.slice();
+      });
+    } else {
+      toSave = { ...selected };
+    }
     go(`step${currentStep + 1}`, {
       ...formData,
-      foodPreferences: selected,
+      foodPreferences: toSave,
       autoChooseFood: auto
     });
   };

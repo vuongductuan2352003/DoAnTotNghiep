@@ -16,7 +16,7 @@ export default function Step1UserInfo() {
   // Khởi tạo state từ formData (nếu có)
   const [fullName, setFullName] = useState(formData.fullName || "");
   const [dob, setDob] = useState(formData.dob || "");
-  const [gender, setGender] = useState(formData.gender || "male");
+  const [gender, setGender] = useState(formData.gender || "Nam");
 
   // Khi formData thay đổi (ví dụ user quay lại step này), cập nhật state
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function Step1UserInfo() {
       <div className="onboard-container">
         <div className="preview-panel">
           <img
-            src={gender === "female" ? images["Female.png"] : images["male.png"]}
+            src={gender === "Nữ" ? images["Female.png"] : images["male.png"]}
             alt="Avatar"
             className="preview-img"
           />
@@ -74,7 +74,7 @@ export default function Step1UserInfo() {
               {fullName.trim() ? fullName : "Tên của bạn"}
             </div>
             <div className="preview-age">{dob ? `${age} tuổi` : "0+"}</div>
-            <div className="preview-gender">{gender === "female" ? "Nữ" : "Nam"}</div>
+            <div className="preview-gender">{gender}</div>
           </div>
         </div>
 
@@ -108,8 +108,8 @@ export default function Step1UserInfo() {
                 name="gender"
                 type="radio"
                 id="gender-male"
-                value="male"
-                checked={gender === "male"}
+                value="Nam"
+                checked={gender === "Nam"}
                 onChange={(e) => setGender(e.target.value)}
               />
               <Form.Check
@@ -118,8 +118,8 @@ export default function Step1UserInfo() {
                 name="gender"
                 type="radio"
                 id="gender-female"
-                value="female"
-                checked={gender === "female"}
+                value="Nữ"
+                checked={gender === "Nữ"}
                 onChange={(e) => setGender(e.target.value)}
               />
             </div>

@@ -1,4 +1,3 @@
-// src/pages/GetData/Step13.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
@@ -15,11 +14,9 @@ const options = [
     key: 'none',
     icon: <FaRegFrown />,
     label: 'Không tập',
-    desc:
-      'Tôi chưa tập luyện, nhưng tôi sẽ làm sau khi yêu cầu chương trình tập luyện của mình!',
+    desc: 'Tôi chưa tập luyện, nhưng tôi sẽ làm sau khi yêu cầu chương trình tập luyện của mình!',
     statRate: 37,
-    statText:
-      'đã trả lời theo cùng một cách. Fitness & Health sẽ giúp bạn duy trì thói quen tập luyện.'
+    statText: 'đã trả lời theo cùng một cách. Fitness & Health sẽ giúp bạn duy trì thói quen tập luyện.'
   },
   {
     key: '1-2',
@@ -44,21 +41,41 @@ const options = [
   }
 ];
 
+const NONE_VALUE = 'None';
+
+// Map từ value tiếng Việt hoặc 'None' sang key
+function valueToKey(val) {
+  if (!val || val === NONE_VALUE) return 'none';
+  const opt = options.find(o => capitalizeFirst(o.label) === val || o.label === val);
+  return opt ? opt.key : '';
+}
+
+// Viết hoa chữ cái đầu
+function capitalizeFirst(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export default function Step13() {
   const { formData, go, currentStep } = useOutletContext();
-  const [freq, setFreq] = useState(formData.trainingFrequency || '');
+  // Nếu formData.trainingFrequency là value tiếng Việt hoặc 'None', map về key
+  const [freq, setFreq] = useState(valueToKey(formData.trainingFrequency));
   const [infoShown, setInfoShown] = useState(false);
   const infoRef = useRef(null);
 
-  // lưu selection ngay khi click
+  // Lưu selection vào localStorage và formData với value tiếng Việt (hoặc 'None')
   useEffect(() => {
     if (!freq) return;
-    const updated = { ...formData, trainingFrequency: freq };
+    let valueToSave = NONE_VALUE;
+    if (freq && freq !== 'none') {
+      const opt = options.find(o => o.key === freq);
+      valueToSave = capitalizeFirst(opt.label);
+    }
+    const updated = { ...formData, trainingFrequency: valueToSave };
     window.localStorage.setItem('formData', JSON.stringify(updated));
     // panel chưa bật lên ngay
   }, [freq]);
 
-  // khi panel bật, scroll vào view
   useEffect(() => {
     if (infoShown && infoRef.current) {
       infoRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -71,7 +88,12 @@ export default function Step13() {
     if (!infoShown) {
       setInfoShown(true);
     } else {
-      const updated = { ...formData, trainingFrequency: freq };
+      let valueToSave = NONE_VALUE;
+      if (freq && freq !== 'none') {
+        const opt = options.find(o => o.key === freq);
+        valueToSave = capitalizeFirst(opt.label);
+      }
+      const updated = { ...formData, trainingFrequency: valueToSave };
       go(`step${currentStep + 1}`, updated);
     }
   };

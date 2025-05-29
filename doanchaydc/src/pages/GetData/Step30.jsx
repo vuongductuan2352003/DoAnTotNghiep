@@ -21,19 +21,26 @@ const SUGAR_CHOICES = [
   },
 ];
 
+// Lấy label tiếng Việt từ key
+const getLabel = (value) => {
+  const found = SUGAR_CHOICES.find(c => c.value === value);
+  return found ? found.label : '';
+};
+
 export default function Step30Sugar() {
   const { formData, go, currentStep } = useOutletContext();
-  // lấy giá trị đã chọn từ local/formData, nếu chưa thì null
-  const [selected, setSelected] = React.useState(formData.sugarHabit ?? null);
+  // Lấy selected (luôn là label tiếng Việt hoặc rỗng)
+  const [selected, setSelected] = React.useState(formData.sugarHabit || '');
 
   // Sync lại nếu formData.sugarHabit thay đổi (khi quay lại step)
   React.useEffect(() => {
-    setSelected(formData.sugarHabit ?? null);
+    setSelected(formData.sugarHabit || '');
   }, [formData.sugarHabit]);
 
   const handleChoose = (value) => {
-    setSelected(value);
-    go(`step${currentStep + 1}`, { ...formData, sugarHabit: value });
+    const label = getLabel(value);
+    setSelected(label);
+    go(`step${currentStep + 1}`, { ...formData, sugarHabit: label });
   };
 
   return (
@@ -45,13 +52,13 @@ export default function Step30Sugar() {
         {SUGAR_CHOICES.map((choice, idx) => (
           <div
             key={choice.value}
-            className={`step30-option${selected === choice.value ? ' selected' : ''}`}
+            className={`step30-option${selected === choice.label ? ' selected' : ''}`}
             style={{ animationDelay: `${idx * 0.09}s` }}
             onClick={() => handleChoose(choice.value)}
           >
             <span className="step30-icon">{choice.icon}</span>
             <span className="step30-label">{choice.label}</span>
-            {selected === choice.value && <span className="step30-tick">✔</span>}
+            {selected === choice.label && <span className="step30-tick">✔</span>}
           </div>
         ))}
       </div>

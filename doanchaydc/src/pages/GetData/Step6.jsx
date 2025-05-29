@@ -1,13 +1,29 @@
 // src/pages/Step6Summary.jsx
 import React, { useMemo, useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import api from "../../utils/api.jsx";             // axios instance của bạn
+import api from "../../utils/api.jsx"; // axios instance
 import images from "../../assets/loadImg.js";
 import '../../styles/step6.css';
 
-// Key lưu draft formData
 const STORAGE_KEY = 'formData';
-const activityMultipliers = [1.2, 1.375, 1.55, 1.725, 1.9];
+
+// Mapping cho hiển thị tiếng Việt từ activityLevel số
+const activityLevelLabels = [
+  "", // 0 - không dùng
+  "Ít vận động",
+  "Vận động nhẹ",
+  "Vận động vừa phải",
+  "Vận động nhiều",
+  "Vận động rất nhiều"
+];
+
+// Map gender value cho API backend
+function mapGenderToApi(gender) {
+  if (gender === "Nam") return "male";
+  if (gender === "Nữ") return "female";
+  // fallback
+  return gender;
+}
 
 export default function Step6Summary() {
   const { formData, go, currentStep } = useOutletContext();
@@ -20,7 +36,7 @@ export default function Step6Summary() {
   // ép kiểu & fallback
   const fullName      = formData.fullName    || "--";
   const age           = Number(formData.age) || 0;
-  const gender        = formData.gender === "female" ? "female" : "male";
+  const gender        = formData.gender      || "Nam"; // value: "Nam" | "Nữ"
   const height        = Number(formData.height)     || 0;
   const weight        = Number(formData.weight)     || 0;
   const bodyFatPct    = Number(formData.bodyFatPercent) || 0;
@@ -48,21 +64,21 @@ export default function Step6Summary() {
     return "Béo phì độ III";
   }, [bmi]);
 
-// 6. Gọi API lấy tất cả các số liệu
+  // 6. Gọi API lấy tất cả các số liệu
   useEffect(() => {
     if (!height || !weight || !age || !gender) return;
 
+    // Dùng mapGenderToApi để chuyển về dạng backend yêu cầu
     const params = {
       height,
       weight,
       age,
-      gender,
+      gender: mapGenderToApi(gender),
       body_fat_pct: bodyFatPct,
     };
     if (activityLevel) {
       params.activity_level = activityLevel;
     }
-    // only add waist/hip if valid numbers
     if (waist !== null && !isNaN(waist)) {
       params.waist = waist;
     }
@@ -70,14 +86,12 @@ export default function Step6Summary() {
       params.hip = hip;
     }
 
-    console.log("[Step6] Gửi params đến /v1/metrics:", params);
+    // Gọi API lấy metrics
     api.get("v1/metrics", { params })
       .then(({ data }) => {
-        console.log("[Step6] Nhận dữ liệu từ /v1/metrics:", data);
         setMetrics(data);
       })
       .catch(err => {
-        console.error("Lỗi khi gọi /v1/metrics:", err);
         setMetrics({});
       });
   }, [height, weight, age, gender, activityLevel, bodyFatPct, waist, hip]);
@@ -85,48 +99,51 @@ export default function Step6Summary() {
   // 7. Gọi API lấy advice & risk
   useEffect(() => {
     if (bmi == null) return;
-    api.get("v1/bmi", { params: { bmi, gender } })
+    api.get("v1/bmi", { params: { bmi, gender: mapGenderToApi(gender) } })
       .then(({ data }) => {
         setApiAdvice(Array.isArray(data.advice) ? data.advice : [data.advice]);
         setApiRisks(Array.isArray(data.risk)   ? data.risk   : [data.risk]);
       })
       .catch(err => {
-        console.error("Lỗi khi gọi /api/v1/bmi:", err);
         setApiAdvice([]);
         setApiRisks([]);
       });
   }, [bmi, gender]);
 
-    // 8. Auto-save summary (metrics + lời khuyên + nguy cơ)
-   useEffect(() => {
-     const draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-     const updated = { ...draft,
-       metrics,
-       advice: apiAdvice,
-       risks: apiRisks
-     };
-     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-   }, [metrics, apiAdvice, apiRisks]);
+  // 8. Auto-save summary (metrics + lời khuyên + nguy cơ)
+  useEffect(() => {
+    const draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    const updated = { ...draft,
+      metrics,
+      advice: apiAdvice,
+      risks: apiRisks
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  }, [metrics, apiAdvice, apiRisks]);
 
   // chuyển bước
   const handleBack = () => go(`step${currentStep - 1}`, formData);
   const handleNext = () => go(`step${currentStep + 1}`, formData);
 
-  const avatarSrc = gender === "female" ? images["Female.png"] : images["male.png"];
+  // Hiển thị avatar đúng giới tính value tiếng Việt
+  const avatarSrc = gender === "Nữ" ? images["Female.png"] : images["male.png"];
+
+  // Label activity level (nếu cần hiển thị)
+  const activityLevelLabel = activityLevelLabels[activityLevel] || "";
 
   return (
     <div className="step6-container">
       {/* Avatar & Info */}
       <div className="step6-avatar">
-        <img src={avatarSrc} alt={gender === "female" ? "Avatar nữ" : "Avatar nam"} />
+        <img src={avatarSrc} alt={gender === "Nữ" ? "Avatar nữ" : "Avatar nam"} />
         <div className="avatar-name">{fullName}</div>
-        <div className="avatar-info">{gender === "female" ? "Nữ" : "Nam"}, {age} tuổi</div>
+        <div className="avatar-info">{gender}, {age} tuổi</div>
       </div>
 
       {/* Panel phân tích */}
       <div className="step6-panel">
         <h2 className="panel-title">Kết quả phân tích cơ thể</h2>
-
+        {/* Nếu muốn show level tiếng Việt: <div>{activityLevelLabel}</div> */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-title">BMI</div>

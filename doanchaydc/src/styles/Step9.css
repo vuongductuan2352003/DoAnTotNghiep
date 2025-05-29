@@ -135,3 +135,11 @@
     margin-bottom: 24px;
   }
 }
+.step9-card.selected {
+  background: linear-gradient(95deg, #24252c 60%, #fd6100 130%);
+  border: 2.5px solid #fd6100;
+  color: #fff;
+  transform: scale(1.045);
+  box-shadow: 0 10px 32px 0 #fd61003b;
+}
+.step9-card.selected .step9-card-icon { color: #fd6100; }

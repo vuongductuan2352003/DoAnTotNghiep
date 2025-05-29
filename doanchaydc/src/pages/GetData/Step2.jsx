@@ -12,7 +12,8 @@ export default function Step2BodyMeasurements() {
   const { formData, go } = useOutletContext();
 
   // Preload dữ liệu nếu có từ formData
-  const [unit, setUnit] = useState(formData.unit || "cm");
+  // -- Lưu ý: unit giờ là tiếng Việt có dấu
+  const [unit, setUnit] = useState(formData.unit || "cm / kg");
   const [height, setHeight] = useState(
     formData.height != null ? String(formData.height) : ""
   );
@@ -39,9 +40,9 @@ export default function Step2BodyMeasurements() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
   }, [unit, height, weight]);
 
-  // Giữ gender từ bước trước
-  const gender = formData.gender || "male";
-  const imgKey = gender === "female" ? "female1.png" : "male1.png";
+  // Giữ gender từ bước trước (giá trị là "Nam" hoặc "Nữ" có dấu)
+  const gender = formData.gender || "Nam";
+  const imgKey = gender === "Nữ" ? "female1.png" : "male1.png";
 
   // Khi nhấn tiếp tục, gọi go để cập nhật formData và chuyển bước tiếp theo
   const handleContinue = () => {
@@ -62,7 +63,7 @@ export default function Step2BodyMeasurements() {
       <div className="w-50 position-relative cccn1">
         <img
           src={images[imgKey]}
-          alt={gender === "female" ? "Vận động viên nữ" : "Vận động viên nam"}
+          alt={gender === "Nữ" ? "Vận động viên nữ" : "Vận động viên nam"}
           className="nvstep2"
         />
         <div
@@ -89,14 +90,14 @@ export default function Step2BodyMeasurements() {
 
         <div className="unit-toggle">
           <button
-            className={unit === "ftin" ? "unit-btn active" : "unit-btn"}
-            onClick={() => setUnit("ftin")}
+            className={unit === "ft, in" ? "unit-btn active" : "unit-btn"}
+            onClick={() => setUnit("ft, in")}
           >
             ft, in
           </button>
           <button
-            className={unit === "cm" ? "unit-btn active" : "unit-btn"}
-            onClick={() => setUnit("cm")}
+            className={unit === "cm / kg" ? "unit-btn active" : "unit-btn"}
+            onClick={() => setUnit("cm / kg")}
           >
             cm / kg
           </button>
@@ -104,11 +105,11 @@ export default function Step2BodyMeasurements() {
 
         <Form.Group className="mt-4">
           <Form.Label className="input-label">
-            {unit === "cm" ? "Chiều cao (cm)" : "Chiều cao (ft/in)"}
+            {unit === "cm / kg" ? "Chiều cao (cm)" : "Chiều cao (ft/in)"}
           </Form.Label>
           <Form.Control
             type="number"
-            placeholder={`__ ${unit}`}
+            placeholder={`__ ${unit === "cm / kg" ? "cm" : "ft/in"}`}
             className="height-input"
             value={height}
             onChange={(e) => setHeight(e.target.value)}

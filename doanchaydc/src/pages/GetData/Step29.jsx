@@ -30,26 +30,36 @@ const DIETS = [
   },
 ];
 
+const NONE = 'None';
+
 export default function Step29Diet() {
   const { formData, go, currentStep } = useOutletContext();
-  // lấy giá trị đã chọn trước đó nếu có (hoặc null)
-  const [selected, setSelected] = React.useState(
-    formData.diet !== undefined && formData.diet !== null ? formData.diet : null
-  );
 
-  // Nếu quay lại thì vẫn highlight ô đã chọn
+  // Xử lý value label khi lấy lại state
+  const [selected, setSelected] = React.useState(() => {
+    if (!formData.diet) return '';
+    return formData.diet === NONE ? NONE : formData.diet.charAt(0).toUpperCase() + formData.diet.slice(1);
+  });
+
   React.useEffect(() => {
-    if (formData.diet !== undefined && formData.diet !== null) {
-      setSelected(formData.diet);
-    }
+    if (!formData.diet) setSelected('');
+    else setSelected(formData.diet === NONE ? NONE : formData.diet.charAt(0).toUpperCase() + formData.diet.slice(1));
   }, [formData.diet]);
 
+  // Trả về label tiếng Việt từ value
+  const getLabel = (value) => {
+    const found = DIETS.find(d => d.value === value);
+    return found ? found.label.charAt(0).toUpperCase() + found.label.slice(1) : '';
+  };
+
   const handleChoose = (value) => {
-    setSelected(value);
     if (value === 'none') {
-      go(`step${currentStep + 1}`, { ...formData, diet: null });
+      setSelected(NONE);
+      go(`step${currentStep + 1}`, { ...formData, diet: NONE });
     } else {
-      go(`step${currentStep + 1}`, { ...formData, diet: value });
+      const label = getLabel(value);
+      setSelected(label);
+      go(`step${currentStep + 1}`, { ...formData, diet: label });
     }
   };
 
@@ -59,28 +69,31 @@ export default function Step29Diet() {
         Bạn có tuân theo bất kỳ chế độ ăn kiêng nào không?
       </h2>
       <div className="step29-options">
-        {DIETS.map((diet) => (
-          <div
-            key={diet.value}
-            className={`step29-option${selected === diet.value ? ' selected' : ''}`}
-            onClick={() => handleChoose(diet.value)}
-          >
-            <div className="step29-icon">{diet.icon}</div>
-            <div className="step29-content">
-              <div className="step29-label">{diet.label}</div>
-              <div className="step29-sub">{diet.sub}</div>
+        {DIETS.map((diet) => {
+          const label = diet.label.charAt(0).toUpperCase() + diet.label.slice(1);
+          return (
+            <div
+              key={diet.value}
+              className={`step29-option${selected === label ? ' selected' : ''}`}
+              onClick={() => handleChoose(diet.value)}
+            >
+              <div className="step29-icon">{diet.icon}</div>
+              <div className="step29-content">
+                <div className="step29-label">{diet.label}</div>
+                <div className="step29-sub">{diet.sub}</div>
+              </div>
+              {selected === label && <span className="step29-tick">✔</span>}
             </div>
-            {selected === diet.value && <span className="step29-tick">✔</span>}
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div
-        className={`step29-option none${selected === null ? ' selected' : ''}`}
+        className={`step29-option none${selected === NONE ? ' selected' : ''}`}
         onClick={() => handleChoose('none')}
       >
         <span className="step29-label">Không, tôi chưa từng</span>
-        <span className="step29-none-x">✕</span>
-        {selected === null && <span className="step29-tick">✔</span>}
+        {/* Chỉ hiển thị X khi được chọn */}
+        {selected === NONE && <span className="step29-none-x">✕</span>}
       </div>
     </div>
   );

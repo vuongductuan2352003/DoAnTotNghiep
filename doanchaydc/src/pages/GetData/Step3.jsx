@@ -9,25 +9,28 @@ import '../../styles/step3.css';
 const STORAGE_KEY = 'formData';
 
 const categories = [
-  { label: "5-9%", file: "fat5_9.png", min: 5, max: 9 },
-  { label: "10-14%", file: "fat10_14.png", min: 10, max: 14 },
-  { label: "15-19%", file: "fat15_19.png", min: 15, max: 19 },
-  { label: "20-24%", file: "fat20_24.png", min: 20, max: 24 },
-  { label: "25-29%", file: "fat25_29.png", min: 25, max: 29 },
-  { label: "30-34%", file: "fat30_34.png", min: 30, max: 34 },
-  { label: "35-39%", file: "fat35_39.png", min: 35, max: 39 },
-  { label: ">40%", file: "fat40.png", min: 40, max: Infinity },
+  { label: "5-9%", file: "fat5_9.png", min: 5, max: 9, key: "5-9%" },
+  { label: "10-14%", file: "fat10_14.png", min: 10, max: 14, key: "10-14%" },
+  { label: "15-19%", file: "fat15_19.png", min: 15, max: 19, key: "15-19%" },
+  { label: "20-24%", file: "fat20_24.png", min: 20, max: 24, key: "20-24%" },
+  { label: "25-29%", file: "fat25_29.png", min: 25, max: 29, key: "25-29%" },
+  { label: "30-34%", file: "fat30_34.png", min: 30, max: 34, key: "30-34%" },
+  { label: "35-39%", file: "fat35_39.png", min: 35, max: 39, key: "35-39%" },
+  { label: ">40%", file: "fat40.png", min: 40, max: Infinity, key: "Trên 40%" },
 ];
 
 export default function Step3BodyFat() {
   const { formData, go } = useOutletContext();
 
-  const genderKey = formData.gender === "female" ? "female" : "male";
-  const genderText = genderKey === "female" ? "Nữ" : "Nam";
+  // Giữ giới tính theo tiếng Việt có dấu
+  const genderKey = formData.gender === "Nữ" ? "Nữ" : "Nam";
+  const genderText = genderKey;
+
   const height    = formData.height || 0;
 
   // Khởi tạo state từ formData nếu có
-  const [mode, setMode]   = useState(formData.mode || "manual");
+  // mode lưu tiếng Việt có dấu luôn
+  const [mode, setMode]   = useState(formData.mode || "Nhập số đo");
   const [index, setIndex] = useState(
     formData.index != null ? formData.index : 0
   );
@@ -64,7 +67,7 @@ export default function Step3BodyFat() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
   }, [mode, index, waist, neck, hip]);
 
-  // Tính % mỡ khi manual
+  // Tính % mỡ khi "Nhập số đo"
   const calculatedFat = useMemo(() => {
     const w  = parseFloat(waist);
     const n  = parseFloat(neck);
@@ -72,7 +75,7 @@ export default function Step3BodyFat() {
     if (!w || !n || !height || !hi) return null;
     const log10 = x => Math.log(x) / Math.log(10);
     let bf;
-    if (genderKey === "male") {
+    if (genderKey === "Nam") {
       bf = 495 / (1.0324 - 0.19077 * log10(w - n) + 0.15456 * log10(height)) - 450;
     } else {
       bf = 495 / (1.29579 - 0.35004 * log10(w + hi - n) + 0.22100 * log10(height)) - 450;
@@ -82,7 +85,7 @@ export default function Step3BodyFat() {
 
   // Sync index với % mỡ hoặc slider
   useEffect(() => {
-    const pct = mode === "slider" ? categories[index].min : calculatedFat;
+    const pct = mode === "Chọn %" ? categories[index].min : calculatedFat;
     if (pct == null) return;
     const found = categories.findIndex(c => pct >= c.min && pct <= c.max);
     if (found >= 0) setIndex(found);
@@ -93,7 +96,7 @@ export default function Step3BodyFat() {
 
   const handleBack = () => go("step2");
   const handleContinue = () => {
-    const pct = mode === "slider" ? categories[index].min : calculatedFat;
+    const pct = mode === "Chọn %" ? categories[index].min : calculatedFat;
     go("step4", {
       waist:           parseFloat(waist),
       neck:            parseFloat(neck),
@@ -126,17 +129,17 @@ export default function Step3BodyFat() {
         <div className="form-panel" style={{ marginTop: '0px' }}>
           <div style={{ display: "flex", alignItems: "center", marginBottom: 16 }}>
             <h2 style={{ marginRight: 12 }}>Nhập số đo để tính % mỡ cơ thể</h2>
-            <div style={{ padding: "4px 10px", backgroundColor: genderKey === "female" ? "#e91e63" : "#2196f3", color: "white", borderRadius: 12, fontWeight: "bold", fontSize: "0.9rem" }}>
+            <div style={{ padding: "4px 10px", backgroundColor: genderKey === "Nữ" ? "#e91e63" : "#2196f3", color: "white", borderRadius: 12, fontWeight: "bold", fontSize: "0.9rem" }}>
               {genderText}
             </div>
           </div>
 
           <div className="mode-toggle">
-            <button onClick={() => setMode("slider")} className={mode === "slider" ? "active" : ""}>Chọn %</button>
-            <button onClick={() => setMode("manual")} className={mode === "manual" ? "active" : ""}>Nhập số đo</button>
+            <button onClick={() => setMode("Chọn %")} className={mode === "Chọn %" ? "active" : ""}>Chọn %</button>
+            <button onClick={() => setMode("Nhập số đo")} className={mode === "Nhập số đo" ? "active" : ""}>Nhập số đo</button>
           </div>
 
-          {mode === "slider" ? (
+          {mode === "Chọn %" ? (
             <div className="slider-wrapper">
               {categories.map((cat, i) => (
                 <React.Fragment key={i}>
@@ -166,7 +169,7 @@ export default function Step3BodyFat() {
             </div>
           )}
 
-          <Button variant="primary" onClick={handleContinue} disabled={mode === "manual" && calculatedFat == null} className="continue-btn">
+          <Button variant="primary" onClick={handleContinue} disabled={mode === "Nhập số đo" && calculatedFat == null} className="continue-btn">
             Tiếp tục →
           </Button>
         </div>

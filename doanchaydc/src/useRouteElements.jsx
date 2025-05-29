@@ -51,6 +51,7 @@ import Step32 from "./pages/GetData/Step32";
 import Step33 from "./pages/GetData/Step33";
 import Step34 from "./pages/GetData/Step34";
 import Step35 from "./pages/GetData/Step35";
+import Step36 from "./pages/GetData/Step36";
 const isAuth = () => Boolean(localStorage.getItem("access_token"));
 
 function PublicRoute({ children }) {
@@ -173,11 +174,12 @@ export default function useRouteElements() {
         { path: "step28", element: <Step28 /> },
         { path: "step29", element: <Step29 /> },
         { path: "step30", element: <Step30 /> },
-                { path: "step31", element: <Step31 /> },
-                { path: "step32", element: <Step32 /> },
-                        { path: "step33", element: <Step33 /> },
-                                { path: "step34", element: <Step34 /> },
-                                        { path: "step35", element: <Step35 /> },
+        { path: "step31", element: <Step31 /> },
+        { path: "step32", element: <Step32 /> },
+        { path: "step33", element: <Step33 /> },
+        { path: "step34", element: <Step34 /> },
+        { path: "step35", element: <Step35 /> },
+        { path: "step36", element: <Step36 /> },
 
         // … nếu còn bước 4,5… tiếp tục khai báo ở đây
       ],

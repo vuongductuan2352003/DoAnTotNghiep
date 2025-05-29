@@ -1,4 +1,3 @@
-// src/pages/GetData/Step12Location.jsx
 import React, { useState, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
@@ -19,10 +18,10 @@ const tools = [
   { key: 'jumpRope',       label: 'Dây nhảy',             icon: <FaGripLines /> },
   { key: 'pullUpBar',      label: 'Xà đơn gắn cửa',       icon: <FaGripLines /> },
   { key: 'resistanceBand', label: 'Dây kháng lực',        icon: <FaGripLines /> },
-  { key: 'foamRoller',     label: 'Con lăn massage',       icon: <FaGripLines /> },
-  { key: 'exerciseBall',   label: 'Bóng tập',              icon: <FaCircleNotch /> },
-  { key: 'medicineBall',   label: 'Bóng thuốc',            icon: <FaCircleNotch /> },
-  { key: 'abWheel',        label: 'Bánh xe tập bụng',      icon: <FaGripLines /> },
+  { key: 'foamRoller',     label: 'Con lăn massage',      icon: <FaGripLines /> },
+  { key: 'exerciseBall',   label: 'Bóng tập',             icon: <FaCircleNotch /> },
+  { key: 'medicineBall',   label: 'Bóng thuốc',           icon: <FaCircleNotch /> },
+  { key: 'abWheel',        label: 'Bánh xe tập bụng',     icon: <FaGripLines /> },
 ];
 
 const noneOption = {
@@ -31,16 +30,30 @@ const noneOption = {
   icon: <FaTimes />
 };
 
+const NONE_VALUE = 'None';
+
+// Convert value tiếng Việt về key
+function labelToKey(label) {
+  if (!label) return '';
+  if (label === 'None') return 'none';
+  const found = tools.find(t => t.label === label);
+  return found ? found.key : '';
+}
+
 export default function Step12Location() {
   const { formData, go, currentStep } = useOutletContext();
 
-  // Chuyển formData.equipment thành mảng ban đầu
+  // Convert value tiếng Việt về key (kể cả lúc quay lại step này)
   const initial = useMemo(() => {
-    const eq = formData.equipment;
-    if (Array.isArray(eq)) return eq;
+    let eq = formData.equipment;
+    if (!eq) return [];
+    if (Array.isArray(eq)) {
+      return eq.map(labelToKey).filter(Boolean);
+    }
     if (typeof eq === 'string' && eq.startsWith('[')) {
       try {
-        return JSON.parse(eq);
+        const arr = JSON.parse(eq);
+        return arr.map(labelToKey).filter(Boolean);
       } catch {
         return [];
       }
@@ -63,20 +76,28 @@ export default function Step12Location() {
   };
 
   const handleContinue = () => {
-    // Lưu equipment trực tiếp dưới dạng mảng
-    const updated = {
-      ...formData,
-      equipment: selected
-    };
-    // Lưu toàn bộ formData (equipment là array) vào localStorage
+    let toSave = [];
+    if (selected.length === 0 || selected.includes('none')) {
+      toSave = [NONE_VALUE];
+    } else {
+      toSave = selected.map(k => {
+        const t = tools.find(x => x.key === k);
+        return t ? capitalizeFirst(t.label) : k;
+      });
+    }
+    const updated = { ...formData, equipment: toSave };
     window.localStorage.setItem('formData', JSON.stringify(updated));
     go(`step${currentStep + 1}`, updated);
   };
 
+  function capitalizeFirst(str) {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   return (
     <div className="step12-container">
       <h2 className="step12-title">Bạn có dụng cụ tập nào ở nhà?</h2>
-
       <div className="step12-grid">
         {tools.map((t, idx) => (
           <div

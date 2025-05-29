@@ -1,4 +1,3 @@
-// src/pages/GetData/Step23Routine.jsx
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import '../../styles/Step23.css';
@@ -11,13 +10,15 @@ const OPTIONS = [
 
 export default function Step23Routine() {
   const { go, currentStep, formData = {} } = useOutletContext();
-  // Nếu muốn giữ lại lựa chọn khi quay lại, dùng formData.routine nếu có
-  const [selected, setSelected] = useState(formData.routine || "");
+
+  // selected là value tiếng Việt (label)
+  const selected = formData.routine || "";
 
   const handleChoose = (value) => {
-    setSelected(value);
-    // Nếu không dùng setFormData, chỉ truyền routine sang step tiếp theo
-    go(`step${currentStep + 1}`, { ...formData, routine: value });
+    // Lấy label tiếng Việt theo value
+    const label = OPTIONS.find(opt => opt.value === value)?.label || "";
+    // Lưu label vào routine
+    go(`step${currentStep + 1}`, { ...formData, routine: label });
   };
 
   return (
@@ -26,7 +27,7 @@ export default function Step23Routine() {
       <div className="step23-options">
         {OPTIONS.map((opt, idx) => (
           <div
-            className={`step23-option${selected === opt.value ? ' selected' : ''}`}
+            className={`step23-option${selected === opt.label ? ' selected' : ''}`}
             key={opt.value}
             style={{ animationDelay: `${0.06 + idx * 0.08}s` }}
             onClick={() => handleChoose(opt.value)}

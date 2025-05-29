@@ -4,16 +4,19 @@ import { FaClock, FaCheck, FaUtensils } from "react-icons/fa";
 import '../../styles/Step34.css';
 
 const OPTIONS = [
-  { value: 'lt30', label: 'Ít hơn 30 phút', icon: <FaClock /> },
-  { value: '30_60', label: '30-60 phút', icon: <FaClock /> },
-  { value: 'gt60', label: 'Hơn 1 giờ', icon: <FaClock /> },
-  { value: 'order', label: 'Tôi thích gọi đồ ăn hoặc ra ngoài ăn', icon: <FaUtensils /> }
+  { label: 'Ít hơn 30 phút', icon: <FaClock /> },
+  { label: '30-60 phút', icon: <FaClock /> },
+  { label: 'Hơn 1 giờ', icon: <FaClock /> },
+  { label: 'Tôi thích gọi đồ ăn hoặc ra ngoài ăn', icon: <FaUtensils /> }
 ];
 
 export default function Step34MealTime() {
   const { formData, go, currentStep } = useOutletContext();
+  // Value là label tiếng Việt
   const [selected, setSelected] = useState(() =>
-    formData.mealTime || localStorage.getItem('mealTime') || ''
+    formData.mealTime ||
+    localStorage.getItem('mealTime') ||
+    ''
   );
 
   useEffect(() => {
@@ -24,11 +27,11 @@ export default function Step34MealTime() {
   }, [formData.mealTime]);
 
   // Xử lý chọn option, lưu local và chuyển tiếp
-  const handleChoose = (value) => {
-    setSelected(value);
-    localStorage.setItem('mealTime', value);
+  const handleChoose = (label) => {
+    setSelected(label);
+    localStorage.setItem('mealTime', label);
     setTimeout(() => {
-      go(`step${currentStep + 1}`, { ...formData, mealTime: value });
+      go(`step${currentStep + 1}`, { ...formData, mealTime: label });
     }, 300); // delay hiệu ứng
   };
 
@@ -40,13 +43,13 @@ export default function Step34MealTime() {
       <div className="step34-options">
         {OPTIONS.map((option) => (
           <div
-            key={option.value}
-            className={`step34-option${selected === option.value ? ' selected' : ''}`}
-            onClick={() => handleChoose(option.value)}
+            key={option.label}
+            className={`step34-option${selected === option.label ? ' selected' : ''}`}
+            onClick={() => handleChoose(option.label)}
           >
             <span className="step34-icon">{option.icon}</span>
             <span className="step34-label">{option.label}</span>
-            {selected === option.value && <span className="step34-check"><FaCheck /></span>}
+            {selected === option.label && <span className="step34-check"><FaCheck /></span>}
           </div>
         ))}
       </div>

@@ -36,7 +36,7 @@ export default function GetData() {
     // Nếu đang ở step 13 và location là gym hoặc combo thì về step11
     if (
       currentStep === 13 &&
-      ['gym', 'none'].includes(formData.location)
+      ['Tập luyện tại phòng gym', 'None'].includes(formData.location)
     ) {
       navigate(`/body-building/step11`);
     } else {

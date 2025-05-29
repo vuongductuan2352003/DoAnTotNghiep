@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import '../../styles/GetData.css';
 
-const totalSteps = 23;
+const totalSteps = 35;
 const STORAGE_KEY = 'formData';
 
 export default function GetData() {

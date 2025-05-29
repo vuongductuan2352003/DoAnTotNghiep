@@ -36,6 +36,21 @@ import Step17 from "./pages/GetData/Step17";
 import Step18 from "./pages/GetData/Step18";
 import Step19 from "./pages/GetData/Step19";
 import Step20 from "./pages/GetData/Step20";
+import Step21 from "./pages/GetData/Step21";
+import Step22 from "./pages/GetData/Step22";
+import Step23 from "./pages/GetData/Step23";
+import Step24 from "./pages/GetData/Step24";
+import Step25 from "./pages/GetData/Step25";
+import Step26 from "./pages/GetData/Step26";
+import Step27 from "./pages/GetData/Step27";
+import Step28 from "./pages/GetData/Step28";
+import Step29 from "./pages/GetData/Step29";
+import Step30 from "./pages/GetData/Step30";
+import Step31 from "./pages/GetData/Step31";
+import Step32 from "./pages/GetData/Step32";
+import Step33 from "./pages/GetData/Step33";
+import Step34 from "./pages/GetData/Step34";
+import Step35 from "./pages/GetData/Step35";
 const isAuth = () => Boolean(localStorage.getItem("access_token"));
 
 function PublicRoute({ children }) {
@@ -139,15 +154,31 @@ export default function useRouteElements() {
         { path: "step9", element: <Step9 /> },
         { path: "step10", element: <Step10 /> },
         { path: "step11", element: <Step11 /> },
-         { path: "step12", element: <Step12 /> },
-         { path: "step13", element: <Step13 /> },
-          { path: "step14", element: <Step14 /> },
-           { path: "step15", element: <Step15 /> },
-            { path: "step16", element: <Step16 /> },
-  { path: "step17", element: <Step17 /> },
-          { path: "step18", element: <Step18 /> },
-           { path: "step19", element: <Step19 /> },
-            { path: "step20", element: <Step20 /> },
+        { path: "step12", element: <Step12 /> },
+        { path: "step13", element: <Step13 /> },
+        { path: "step14", element: <Step14 /> },
+        { path: "step15", element: <Step15 /> },
+        { path: "step16", element: <Step16 /> },
+        { path: "step17", element: <Step17 /> },
+        { path: "step18", element: <Step18 /> },
+        { path: "step19", element: <Step19 /> },
+        { path: "step20", element: <Step20 /> },
+        { path: "step21", element: <Step21 /> },
+        { path: "step22", element: <Step22 /> },
+        { path: "step23", element: <Step23 /> },
+        { path: "step24", element: <Step24 /> },
+        { path: "step25", element: <Step25 /> },
+        { path: "step26", element: <Step26 /> },
+        { path: "step27", element: <Step27 /> },
+        { path: "step28", element: <Step28 /> },
+        { path: "step29", element: <Step29 /> },
+        { path: "step30", element: <Step30 /> },
+                { path: "step31", element: <Step31 /> },
+                { path: "step32", element: <Step32 /> },
+                        { path: "step33", element: <Step33 /> },
+                                { path: "step34", element: <Step34 /> },
+                                        { path: "step35", element: <Step35 /> },
+
         // … nếu còn bước 4,5… tiếp tục khai báo ở đây
       ],
     },

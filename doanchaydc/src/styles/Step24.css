@@ -1,0 +1,129 @@
+.step24-root {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 36px 16px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.step24-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.step24-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  justify-items: center;
+  margin-bottom: 28px;
+}
+
+.step24-square {
+  background: #191919;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  padding: 28px 10px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  min-width: 115px;
+  cursor: pointer;
+  transition:
+    border 0.21s, background 0.19s, color 0.18s, box-shadow 0.18s, transform 0.22s;
+  font-size: 1.09rem;
+  position: relative;
+  box-shadow: 0 0 0 0 rgba(255,87,34,0);
+  will-change: transform, box-shadow;
+}
+
+.step24-icon-large {
+  font-size: 2.35rem;
+  margin-bottom: 10px;
+}
+
+.step24-label {
+  margin-top: 2px;
+  font-size: 1.03rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.step24-square.selected {
+  border: 2px solid #ff5722;
+  background: linear-gradient(160deg, #232323 65%, #181818 100%);
+  color: #ff5722;
+  box-shadow: 0 2px 22px 0 rgba(255,87,34,0.11);
+  transform: scale(1.045);
+  z-index: 2;
+}
+
+.step24-square:hover {
+  border-color: #ff5722;
+  background: #232323;
+  color: #ff7d47;
+  box-shadow: 0 0 10px 0 rgba(255,87,34,0.08);
+  transform: scale(1.07);
+  z-index: 2;
+}
+
+.step24-square.disabled {
+  pointer-events: none;
+  opacity: 0.35;
+  filter: grayscale(0.16);
+}
+
+.step24-square .step24-tick {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 1.15em;
+  color: #ff5722;
+  font-weight: 900;
+  animation: tickPop 0.22s;
+}
+
+@keyframes tickPop {
+  0% { transform: scale(0.6); opacity: 0.3;}
+  70% { transform: scale(1.20);}
+  100% { transform: scale(1); opacity: 1;}
+}
+
+.step24-square.none {
+  background: #232323;
+  border-color: transparent;
+  color: #fff;
+  margin: 32px auto 0 auto;
+  padding: 22px 12px;
+  max-width: 100%;
+  transition: border 0.21s, color 0.18s, background 0.19s;
+}
+.step24-square.none.selected,
+.step24-square.none:hover {
+  border: 2px solid #ff5722;
+  color: #ff5722;
+  background: #1b1b1b;
+}
+
+.step24-btn {
+  margin: 38px auto 0;
+  padding: 16px 48px;
+  font-size: 1.13rem;
+  background: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 28px 0 rgba(255,87,34,0.09);
+  transition: background 0.16s, transform 0.12s;
+  display: block;
+  letter-spacing: 0.01em;
+}
+.step24-btn:hover {
+  background: #ff784e;
+  transform: translateY(-2px) scale(1.03);
+}

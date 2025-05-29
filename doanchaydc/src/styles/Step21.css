@@ -1,12 +1,12 @@
 :root {
   --accent: #ff5722;
   --bg-card: #1f1f1f;
-  --bg-card-hover: #2a2a2a;
-  --bg-card-selected: #292929;
+  --bg-hover: #2a2a2a;
+  --bg-selected: #292929;
   --text-light: #fff;
 }
 
-.step20-root {
+.step21-root {
   max-width: 480px;
   margin: 0 auto;
   padding: 32px 16px;
@@ -14,7 +14,7 @@
   font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.step20-title {
+.step21-title {
   font-size: 2rem;
   font-weight: 700;
   color: var(--text-light);
@@ -23,13 +23,13 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-.step20-list {
+.step21-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.step20-item {
+.step21-item {
   background: var(--bg-card);
   border: 2px solid transparent;
   border-radius: 8px;
@@ -48,49 +48,47 @@
   animation: fadeInUp 0.4s forwards;
 }
 
-/* Задержка анимации для каждого пункта */
-.step20-item:nth-child(1) { animation-delay: 0.2s; }
-.step20-item:nth-child(2) { animation-delay: 0.3s; }
-.step20-item:nth-child(3) { animation-delay: 0.4s; }
-.step20-item:nth-child(4) { animation-delay: 0.5s; }
+.step21-item:nth-child(1) { animation-delay: 0.2s; }
+.step21-item:nth-child(2) { animation-delay: 0.3s; }
+.step21-item:nth-child(3) { animation-delay: 0.4s; }
+.step21-item:nth-child(4) { animation-delay: 0.5s; }
 
-.step20-item:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(0) scale(1.01);
+.step21-item:hover {
+  background: var(--bg-hover);
+  transform: translateY(0) scale(1.02);
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
 
-.step20-item:active {
-  transform: translateY(2px) scale(0.99);
+.step21-item:active {
+  transform: translateY(2px) scale(0.98);
 }
 
-.step20-item.selected {
-  background: var(--bg-card-selected);
+.step21-item.selected {
+  background: var(--bg-selected);
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(255,87,34,0.2);
 }
 
-.step20-label {
+.step21-label {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-light);
 }
 
-.step20-icon {
+.step21-icon {
   font-size: 1.4rem;
   color: #bbb;
   transition: color 0.3s, transform 0.3s;
 }
 
-.step20-item:hover .step20-icon {
+.step21-item:hover .step21-icon {
   transform: scale(1.2);
 }
 
-.step20-item.selected .step20-icon {
+.step21-item.selected .step21-icon {
   color: var(--accent);
 }
 
-/* Анимации */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }

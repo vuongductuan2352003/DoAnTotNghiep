@@ -1,0 +1,131 @@
+.step28-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #111;
+  animation: fadeInStep28 0.7s;
+}
+@keyframes fadeInStep28 {
+  from { opacity: 0; transform: translateY(30px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.step28-card {
+  margin: 36px 0 0 0;
+  padding: 36px 32px 32px 32px;
+  background: #171616;
+  border-radius: 24px;
+  box-shadow: 0 12px 44px 0 rgba(255,87,34,0.10);
+  max-width: 390px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  animation: fadeUpStep28 0.5s;
+}
+@keyframes fadeUpStep28 {
+  from { opacity: 0; transform: translateY(30px) scale(0.98);}
+  to   { opacity: 1; transform: translateY(0) scale(1);}
+}
+
+.step28-img-wrapper {
+  position: relative;
+  width: 170px;
+  margin: 0 auto 12px auto;
+  height: 170px;
+}
+.step28-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(255,87,34,0.13);
+  background: #222;
+  object-fit: cover;
+  z-index: 2;
+  position: relative;
+  animation: pulseStep28Img 1.6s infinite alternate;
+}
+@keyframes pulseStep28Img {
+  from { box-shadow: 0 4px 22px 0 rgba(255,87,34,0.11);}
+  to   { box-shadow: 0 0px 32px 10px rgba(255,87,34,0.17);}
+}
+.step28-img-pulse {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  width: 174px; height: 174px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,87,34,0.12) 0%, rgba(255,87,34,0.02) 80%);
+  z-index: 1;
+  pointer-events: none;
+  animation: pulseHalo 2.2s infinite alternate;
+}
+@keyframes pulseHalo {
+  from { opacity: 0.6;}
+  to   { opacity: 1;}
+}
+
+.step28-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 18px;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+  line-height: 1.27;
+  text-shadow: 0 3px 10px #12080240;
+  animation: fadeInStep28Title 0.8s;
+}
+@keyframes fadeInStep28Title {
+  from { opacity: 0; transform: translateY(20px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.step28-desc {
+  color: #eee;
+  font-size: 1.08rem;
+  margin-bottom: 36px;
+  text-align: left;
+  line-height: 1.55;
+  animation: fadeInStep28Desc 0.9s;
+}
+@keyframes fadeInStep28Desc {
+  from { opacity: 0; transform: translateY(30px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.step28-desc ul {
+  padding-left: 18px;
+  margin: 12px 0 0 0;
+}
+.step28-desc li {
+  margin-bottom: 6px;
+  font-size: 1.04em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.step28-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 0;
+  margin-top: 6px;
+  background: #ff5722;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.13rem;
+  border-radius: 999px;
+  border: none;
+  box-shadow: 0 3px 22px 0 rgba(255,87,34,0.18);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.19s;
+  animation: fadeInStep28Btn 1s;
+}
+.step28-btn:hover {
+  background: #ff4a14;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 36px 0 rgba(255,87,34,0.20);
+}
+@keyframes fadeInStep28Btn {
+  from { opacity: 0; transform: translateY(16px);}
+  to   { opacity: 1; transform: translateY(0);}
+}

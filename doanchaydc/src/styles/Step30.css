@@ -1,0 +1,88 @@
+.step30-root {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px 16px;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  text-align: center;
+}
+
+.step30-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  line-height: 1.2;
+}
+
+.step30-options {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.step30-option {
+  display: flex;
+  align-items: center;
+  background: #181818;
+  border-radius: 13px;
+  padding: 18px 24px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  font-size: 1.08rem;
+  margin-bottom: 0;
+  box-shadow: 0 0 0 0 rgba(255,87,34,0);
+  transition: border 0.18s, background 0.18s, color 0.15s, box-shadow 0.24s cubic-bezier(.57,1.42,.49,.98), transform 0.22s cubic-bezier(.57,1.42,.49,.98);
+  will-change: transform, box-shadow;
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  animation: step30FadeIn 0.65s cubic-bezier(.57,1.42,.49,.98) forwards;
+  position: relative;
+  width: 550px;
+  height: 100px;
+}
+
+@keyframes step30FadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.step30-option .step30-icon {
+  font-size: 1.6em;
+  margin-right: 16px;
+  min-width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step30-label {
+  font-size: 1.12em;
+  font-weight: 500;
+  text-align: left;
+}
+
+.step30-option.selected {
+  border-color: #ff5722;
+  background: #241915;
+  color: #ff5722;
+  box-shadow: 0 2px 18px 0 rgba(255,87,34,0.11);
+  transform: scale(1.018);
+  z-index: 2;
+}
+
+.step30-option:hover {
+  border-color: #ff8c40;
+  background: #232323;
+  color: #ff8c40;
+  transform: scale(1.02);
+  box-shadow: 0 8px 22px 0 rgba(255,87,34,0.10);
+}
+
+.step30-tick {
+  position: absolute;
+  right: 20px;
+  font-size: 1.23em;
+  color: #ff5722;
+}

@@ -1,0 +1,79 @@
+.step16-root {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  text-align: center;
+}
+.step16-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 28px;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.7);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.step16-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Mỗi ô lựa chọn */
+.step16-item {
+  background: #1a1a1a;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: 
+    background 0.3s, 
+    border-color 0.3s, 
+    box-shadow 0.3s, 
+    transform 0.2s;
+}
+.step16-item:hover {
+  background: #2a2a2a;
+}
+.step16-item.selected {
+  border-color: #ff5722;
+  box-shadow: 0 6px 18px rgba(255,87,34,0.4);
+  transform: scale(1.03);
+}
+
+/* Ô cuối full-width */
+.step16-item:nth-child(5) {
+  grid-column: span 2;
+}
+
+/* Icon & label */
+.step16-icon {
+  color: #ff5722;
+  font-size: 1.6rem;
+}
+.step16-label {
+  flex: 1;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive: 1 cột nhỏ */
+@media (max-width: 600px) {
+  .step16-grid {
+    grid-template-columns: 1fr;
+  }
+  .step16-item:nth-child(5) {
+    grid-column: auto;
+  }
+}

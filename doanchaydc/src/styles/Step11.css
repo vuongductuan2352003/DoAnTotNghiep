@@ -1,0 +1,162 @@
+/* src/styles/Step11.css */
+
+.step11-root {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 0 24px;
+  text-align: center;
+}
+
+.step11-title {
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px #000b;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards 0.1s;
+}
+
+/* Keyframes chung */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Danh sách chính */
+.step11-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Mỗi item */
+.step11-item {
+  background: #222;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.step11-list .step11-item:nth-child(1) { animation-delay: 0.2s; }
+.step11-list .step11-item:nth-child(2) { animation-delay: 0.3s; }
+.step11-list .step11-item:nth-child(3) { animation-delay: 0.4s; }
+.step11-list .step11-item:nth-child(4) { animation-delay: 0.5s; }
+
+.step11-item:hover {
+  background: #2a2a2a;
+}
+.step11-item.selected {
+  background: #402a21;
+  box-shadow: 0 0 0 2px #ff5722;
+}
+
+/* Cột trái icon + text */
+.step11-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.step11-item-icon {
+  color: #ccc;
+}
+.step11-item-label {
+  color: #eee;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Checkbox giả */
+.step11-item-check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Divider */
+.step11-divider {
+  border: none;
+  height: 1px;
+  background: #333;
+  margin: 28px 0;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards 0.6s;
+}
+
+/* None item */
+.step11-none {
+  background: #222;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards 0.7s;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.step11-none:hover {
+  background: #2a2a2a;
+}
+.step11-none.selected {
+  background: #402a21;
+  box-shadow: 0 0 0 2px #ff5722;
+}
+.step11-none span {
+  color: #eee;
+  font-size: 1rem;
+}
+.step11-none-icon {
+  color: #ff5722;
+}
+
+/* Nút tiếp tục */
+.step11-btn {
+  margin-top: 32px;
+  width: 90%;
+  max-width: 360px;
+  padding: 14px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  background: #ff5722;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards 0.8s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px #ff5722aa;
+}
+.step11-btn:hover:not(:disabled) {
+  background: #ff7043;
+  transform: translateY(-2px);
+}
+.step11-btn:disabled {
+  background: #663322;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .step11-root {
+    padding: 24px 12px 24px;
+  }
+  .step11-item, .step11-none {
+    padding: 10px 14px;
+  }
+  .step11-btn {
+    width: 100%;
+    font-size: 1.05rem;
+  }
+}

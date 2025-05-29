@@ -11,7 +11,18 @@ const exercises = [
   { key: 'cardio', label: 'Cardio', image: images['cardio.png'] },
   { key: 'yoga', label: 'Yoga / Giãn cơ', image: images['yoga.png'] },
   { key: 'weights', label: 'Nâng tạ', image: images['weights.png'] },
-  { key: 'pullup', label: 'Kéo xà', image: images['pullup.png'] }
+  { key: 'pullup', label: 'Kéo xà', image: images['pullup.png'] },
+  {
+    key: 'squat',
+    label: 'Squat với tạ',
+    image: images['squat.png'],
+  },
+  {
+    key: 'pushup',
+    label: 'Chống đẩy',
+    image: images['pushup.png'],
+  }
+ 
 ];
 
 export default function Step10Preference() {

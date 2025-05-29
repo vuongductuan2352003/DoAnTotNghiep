@@ -1,0 +1,159 @@
+/* src/styles/Step12.css */
+
+:root {
+  /* Black & Orange theme */
+  --bg-body: #121212;
+  --card-bg: #1e1e1e;
+  --card-bg-hover: #2a2a2a;
+  --card-bg-selected: #e67e22;
+  --accent-primary: #e67e22;
+  --accent-secondary: #e74c3c;
+  --text-primary: #ecf0f1;
+  --text-secondary: #95a5a6;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --radius: 12px;
+  --transition: 0.3s;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-body);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: var(--text-primary);
+}
+
+.step12-container {
+  max-width: 640px;
+  margin: 50px auto;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.step12-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: var(--text-primary);
+}
+
+.step12-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.step12-item {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 4px 8px var(--shadow);
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Giữ hình vuông */
+  aspect-ratio: 1 / 1;
+}
+
+.step12-item:hover {
+  background: var(--card-bg-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+.step12-item.selected {
+  background: var(--card-bg-selected);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+.step12-item.selected::before {
+ 
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 6px;
+  background: linear-gradient(135deg, #e67e22, #f39c12);
+}
+
+.step12-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  color: var(--accent-primary);
+  transition: color var(--transition);
+}
+
+.step12-item.selected .step12-icon {
+  color: #fff;
+}
+
+.step12-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  transition: color var(--transition);
+}
+
+.step12-item.selected .step12-label {
+  color: #fff;
+}
+
+/* “Không có cái nào” */
+.none-option .step12-icon {
+  color: var(--accent-secondary);
+}
+.none-option.selected {
+  background: var(--accent-secondary);
+}
+.none-option.selected .step12-icon,
+.none-option.selected .step12-label {
+  color: #fff;
+}
+
+/* separator */
+.step12-separator {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: #333;
+  opacity: 0.3;
+  margin: 12px 0;
+}
+
+/* nút Tiếp tục */
+.step12-button {
+  margin-top: 32px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.step12-button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.step12-button:not(:disabled):hover {
+  background: #cf711b;
+  transform: scale(1.03);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

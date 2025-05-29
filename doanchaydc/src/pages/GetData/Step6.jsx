@@ -97,16 +97,16 @@ export default function Step6Summary() {
       });
   }, [bmi, gender]);
 
-  // 8. Auto-save summary (metrics + lời khuyên + nguy cơ)
-  useEffect(() => {
-    const draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    const updated = { ...draft,
-      metrics,
-      advice: apiAdvice,
-      risks: apiRisks
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  }, [metrics, apiAdvice, apiRisks]);
+    // 8. Auto-save summary (metrics + lời khuyên + nguy cơ)
+   useEffect(() => {
+     const draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+     const updated = { ...draft,
+       metrics,
+       advice: apiAdvice,
+       risks: apiRisks
+     };
+     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+   }, [metrics, apiAdvice, apiRisks]);
 
   // chuyển bước
   const handleBack = () => go(`step${currentStep - 1}`, formData);

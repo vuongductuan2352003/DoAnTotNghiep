@@ -4,11 +4,10 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import '../../styles/GetData.css';
 
-const totalSteps = 13;
+const totalSteps = 23;
 const STORAGE_KEY = 'formData';
 
 export default function GetData() {
-  // Load initial formData from localStorage if available
   const [formData, setFormData] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : {};
@@ -16,30 +15,32 @@ export default function GetData() {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const stepMatch = location.pathname.match(/step(\d+)/);
   const currentStep = stepMatch ? Number(stepMatch[1]) : 1;
 
-  // Persist formData to localStorage on change
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, [formData]);
 
   const go = (to, data = {}) => {
-    // On Step1, if fullName is entered and differs from existing, reset entire formData
-    if (data.fullName && data.fullName !== formData.fullName) {
-      setFormData(data);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } else {
-      const merged = { ...formData, ...data };
-      setFormData(merged);
-      // localStorage updated by useEffect
-    }
+    const merged = data.fullName && data.fullName !== formData.fullName
+      ? data
+      : { ...formData, ...data };
+    setFormData(merged);
     navigate(to);
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
+    if (currentStep <= 1) return;
+
+    // Nếu đang ở step 13 và location là gym hoặc combo thì về step11
+    if (
+      currentStep === 13 &&
+      ['gym', 'none'].includes(formData.location)
+    ) {
+      navigate(`/body-building/step11`);
+    } else {
+      // Ngược lại, về step trước bình thường
       navigate(`/body-building/step${currentStep - 1}`);
     }
   };
@@ -56,9 +57,10 @@ export default function GetData() {
             style={{ width: `${(currentStep / totalSteps) * 100}%` }}
           />
         </div>
-        <div className="step-counter">{currentStep}/{totalSteps}</div>
+        <div className="step-counter">
+          {currentStep}/{totalSteps}
+        </div>
       </div>
-      {/* Pass formData and go via context */}
       <Outlet context={{ formData, go, currentStep, totalSteps }} />
     </div>
   );

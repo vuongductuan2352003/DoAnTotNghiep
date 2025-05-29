@@ -1,0 +1,173 @@
+.step19-root {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  text-align: center;
+}
+
+.step19-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.step19-subtitle {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 32px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Body: options bên trái, hình bên phải */
+.step19-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Danh sách options */
+.step19-options {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step19-item {
+  background: #1b1b1b;
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
+}
+
+.step19-item:hover {
+  background: #2e2e2e;
+}
+
+.step19-item.selected {
+  border: 2px solid #ff5722;
+  box-shadow: 0 6px 20px rgba(255,87,34,0.5);
+}
+
+.step19-checkbox {
+  color: #666;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.step19-item.selected .step19-checkbox {
+  color: #ff5722;
+}
+
+.step19-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Hình body và highlight */
+.step19-image {
+  position: relative;
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -100px;
+
+}
+
+.step19-body-img {
+  max-width: 280px;
+  width: 130px;
+  height: auto;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Vòng highlight */
+.injury-highlight {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  border: 3px solid #ff5722;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255,87,34,0.7);
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+/* Con trỏ highlight cho đầu gối */
+.injury-highlight.knee {
+  bottom: 60px;
+  top: 253.5px;
+  left: calc(50% + 20.15px);
+}
+.injury-highlight.kneee {
+  bottom: 60px;
+  top: 255.5px;
+  left: calc(50% + -23.15px);
+}
+
+/* Con trỏ highlight cho lưng */
+.injury-highlight.back {
+  top: 56px;
+  left: calc(50% + -37px);
+}
+
+/* Nút tiếp tục */
+.step19-btn {
+  margin: 40px auto 0;
+  background: #ff5722;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 36px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255,87,34,0.5);
+  transition: background 0.3s, transform 0.2s, opacity 0.3s;
+  opacity: 0;
+  animation: fadeIn 1s 0.6s ease-out forwards;
+}
+
+.step19-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.step19-btn:not(:disabled):hover {
+  background: #ff7043;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%     { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .step19-body { flex-direction: column; }
+  .injury-highlight.knee { bottom: 40px; left: 50%; }
+  .injury-highlight.back { top: 40px; left: 50%; }
+}

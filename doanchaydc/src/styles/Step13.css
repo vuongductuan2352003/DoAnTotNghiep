@@ -1,0 +1,116 @@
+/* src/styles/Step13.css */
+.step13-root {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+.step13-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 32px;
+  text-shadow: 0 4px 14px rgba(0,0,0,0.8);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.step13-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.step13-item {
+  background: #1b1b1b;
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+}
+.step13-item:nth-child(1) { animation-delay: 0.2s; }
+.step13-item:nth-child(2) { animation-delay: 0.3s; }
+.step13-item:nth-child(3) { animation-delay: 0.4s; }
+.step13-item:nth-child(4) { animation-delay: 0.5s; }
+.step13-item:hover { background: #2e2e2e; }
+.step13-item.selected {
+  border-color: #ff5722;
+  box-shadow: 0 6px 20px rgba(255,87,34,0.4);
+  transform: scale(1.02);
+}
+
+.step13-item-left { display: flex; align-items: center; gap: 14px; }
+.step13-item-icon { color: #ff5722; font-size: 1.8rem; }
+.step13-item-label { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.step13-item-desc { font-size: 0.95rem; color: #bbb; margin-top: 4px; }
+.step13-item-check {
+  color: #ff5722;
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.step13-item.selected .step13-item-check { opacity: 1; }
+
+.step13-info {
+  background: #0055d4;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin: 24px auto 12px;   /* đẩy panel lên trên nút */
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  animation: fadeIn 0.6s ease-out;
+  box-shadow: 0 6px 24px rgba(0,85,212,0.4);
+}
+.step13-info-icon { color: #fff; font-size: 2.4rem; }
+.step13-info-text { text-align: left; color: #fff; }
+.step13-info-text b {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+.step13-info-text p {
+  margin: 4px 0 8px;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+.step13-info-note {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.step13-btn {
+  display: block;
+  margin: 0 auto;
+  background: #ff5722;
+  border: none;
+  margin-top: 10px;
+  border-radius: 28px;
+  padding: 14px 32px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255,87,34,0.5);
+  transition: background 0.3s, transform 0.2s;
+  animation: fadeIn 0.8s ease-out;
+}
+.step13-btn:hover {
+  background: #ff7043;
+  transform: translateY(-3px);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

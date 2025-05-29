@@ -1,64 +1,60 @@
 // src/pages/GetData/Step9.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { FaBolt } from 'react-icons/fa';
 import '../../styles/Step9.css';
 
 const levels = [
   {
     key: 'beginner',
     title: 'Sơ cấp',
-    desc: 'Bất cứ khi nào tôi ngồi trên sàn, tôi rất khó để đứng lên.',
+    desc: 'Chưa thử hoặc mới bắt đầu tập tạ.',
+    icons: 1
   },
   {
     key: 'intermediate',
-    title: 'Nghiệp dư',
-    desc: 'Tôi cố gắng tập thể dục mỗi tuần một lần, nhưng vẫn không đều đặn.',
+    title: 'Trung cấp',
+    desc: 'Đã thử và thực hành các bài tập phổ biến.',
+    icons: 2
   },
   {
     key: 'advanced',
     title: 'Cao cấp',
-    desc: 'Tôi đang làm rất tốt! Tôi đang trong hình dáng đẹp nhất của cuộc đời mình.',
+    desc: 'Đã rèn luyện sức mạnh trong nhiều năm.',
+    icons: 3
   },
 ];
 
 export default function Step9() {
   const { formData, go, currentStep } = useOutletContext();
-  const [level, setLevel] = useState(formData.fitnessLevel || '');
 
-  // Lưu vào localStorage mỗi khi chọn
   const handleSelect = (key) => {
-    setLevel(key);
     const updated = { ...formData, fitnessLevel: key };
     window.localStorage.setItem('formData', JSON.stringify(updated));
-  };
-
-  const handleContinue = () => {
-    const updated = { ...formData, fitnessLevel: level };
-    go(`step${currentStep+1}`, updated);
+    go(`step${currentStep + 1}`, updated);
   };
 
   return (
     <div className="step9-root">
-      <h2 className="step9-title">Mức độ tập thể hình của bạn<br/>là gì?</h2>
+      <h2 className="step9-title">
+        Mức độ tập luyện của bạn<br/>là gì?
+      </h2>
+
       <div className="step9-list">
-        {levels.map((item) => (
+        {levels.map(item => (
           <div
-            className={`step9-card${level === item.key ? ' selected' : ''}`}
             key={item.key}
+            className="step9-card"
             onClick={() => handleSelect(item.key)}
           >
+            <div className="step9-card-icon">
+              {Array(item.icons).fill().map((_, i) => <FaBolt key={i} />)}
+            </div>
             <div className="step9-card-title">{item.title}</div>
             <div className="step9-card-desc">{item.desc}</div>
           </div>
         ))}
       </div>
-      <button
-        className="step9-btn"
-        onClick={handleContinue}
-        disabled={!level}
-      >
-        Tiếp tục →
-      </button>
     </div>
   );
 }

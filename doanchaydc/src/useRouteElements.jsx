@@ -27,6 +27,15 @@ import Step8 from "./pages/GetData/Step8";
 import Step9 from "./pages/GetData/Step9";
 import Step10 from "./pages/GetData/Step10";
 import Step11 from "./pages/GetData/Step11";
+import Step12 from "./pages/GetData/Step12";
+import Step13 from "./pages/GetData/Step13";
+import Step14 from "./pages/GetData/Step14";
+import Step15 from "./pages/GetData/Step15";
+import Step16 from "./pages/GetData/Step16";
+import Step17 from "./pages/GetData/Step17";
+import Step18 from "./pages/GetData/Step18";
+import Step19 from "./pages/GetData/Step19";
+import Step20 from "./pages/GetData/Step20";
 const isAuth = () => Boolean(localStorage.getItem("access_token"));
 
 function PublicRoute({ children }) {
@@ -130,6 +139,15 @@ export default function useRouteElements() {
         { path: "step9", element: <Step9 /> },
         { path: "step10", element: <Step10 /> },
         { path: "step11", element: <Step11 /> },
+         { path: "step12", element: <Step12 /> },
+         { path: "step13", element: <Step13 /> },
+          { path: "step14", element: <Step14 /> },
+           { path: "step15", element: <Step15 /> },
+            { path: "step16", element: <Step16 /> },
+  { path: "step17", element: <Step17 /> },
+          { path: "step18", element: <Step18 /> },
+           { path: "step19", element: <Step19 /> },
+            { path: "step20", element: <Step20 /> },
         // … nếu còn bước 4,5… tiếp tục khai báo ở đây
       ],
     },

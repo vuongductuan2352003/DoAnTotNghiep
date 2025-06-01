@@ -21,7 +21,6 @@ const activityLevelLabels = [
 function mapGenderToApi(gender) {
   if (gender === "Nam") return "male";
   if (gender === "Nữ") return "female";
-  // fallback
   return gender;
 }
 
@@ -44,7 +43,7 @@ export default function Step6Summary() {
   const waist         = formData.waist   != null ? Number(formData.waist) : null;
   const hip           = formData.hip     != null ? Number(formData.hip)   : null;
 
-  // 1. BMI (giữ nguyên tính toán local)
+  // 1. BMI
   const bmi = useMemo(() => {
     if (!height || !weight) return null;
     const m = height / 100;
@@ -64,72 +63,70 @@ export default function Step6Summary() {
     return "Béo phì độ III";
   }, [bmi]);
 
-  // 6. Gọi API lấy tất cả các số liệu
+  // 3. Gọi API lấy metrics
   useEffect(() => {
     if (!height || !weight || !age || !gender) return;
-
-    // Dùng mapGenderToApi để chuyển về dạng backend yêu cầu
     const params = {
       height,
       weight,
       age,
       gender: mapGenderToApi(gender),
       body_fat_pct: bodyFatPct,
+      activity_level: activityLevel,
     };
-    if (activityLevel) {
-      params.activity_level = activityLevel;
-    }
-    if (waist !== null && !isNaN(waist)) {
-      params.waist = waist;
-    }
-    if (hip !== null && !isNaN(hip)) {
-      params.hip = hip;
-    }
+    if (waist !== null) params.waist = waist;
+    if (hip   !== null) params.hip   = hip;
 
-    // Gọi API lấy metrics
     api.get("v1/metrics", { params })
-      .then(({ data }) => {
-        setMetrics(data);
-      })
-      .catch(err => {
-        setMetrics({});
-      });
+      .then(({ data }) => setMetrics(data))
+      .catch(() => setMetrics({}));
   }, [height, weight, age, gender, activityLevel, bodyFatPct, waist, hip]);
 
-  // 7. Gọi API lấy advice & risk
+  // 4. Gọi API lấy advice & risk
   useEffect(() => {
     if (bmi == null) return;
     api.get("v1/bmi", { params: { bmi, gender: mapGenderToApi(gender) } })
       .then(({ data }) => {
         setApiAdvice(Array.isArray(data.advice) ? data.advice : [data.advice]);
-        setApiRisks(Array.isArray(data.risk)   ? data.risk   : [data.risk]);
+        setApiRisks (Array.isArray(data.risk)   ? data.risk   : [data.risk]);
       })
-      .catch(err => {
+      .catch(() => {
         setApiAdvice([]);
         setApiRisks([]);
       });
   }, [bmi, gender]);
 
-  // 8. Auto-save summary (metrics + lời khuyên + nguy cơ)
+  // 5. Auto-save summary vào localStorage
   useEffect(() => {
     const draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    const updated = { ...draft,
+    const updated = {
+      ...draft,
       metrics,
       advice: apiAdvice,
-      risks: apiRisks
+      risks: apiRisks,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   }, [metrics, apiAdvice, apiRisks]);
 
-  // chuyển bước
+  // 6. Chuyển bước, đồng thời lưu vào formData
+  const handleNext = () => {
+    const updatedForm = {
+      ...formData,
+      metrics,
+      advice: apiAdvice,
+      risks: apiRisks
+    };
+    // Cập nhật localStorage chung
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedForm));
+    // Next
+    go(`step${currentStep + 1}`, updatedForm);
+  };
+
+  // 7. Nút Back
   const handleBack = () => go(`step${currentStep - 1}`, formData);
-  const handleNext = () => go(`step${currentStep + 1}`, formData);
 
-  // Hiển thị avatar đúng giới tính value tiếng Việt
+  // Avatar
   const avatarSrc = gender === "Nữ" ? images["Female.png"] : images["male.png"];
-
-  // Label activity level (nếu cần hiển thị)
-  const activityLevelLabel = activityLevelLabels[activityLevel] || "";
 
   return (
     <div className="step6-container">
@@ -143,45 +140,45 @@ export default function Step6Summary() {
       {/* Panel phân tích */}
       <div className="step6-panel">
         <h2 className="panel-title">Kết quả phân tích cơ thể</h2>
-        {/* Nếu muốn show level tiếng Việt: <div>{activityLevelLabel}</div> */}
         <div className="stats-grid">
+          {/* BMI */}
           <div className="stat-card">
             <div className="stat-title">BMI</div>
             <div className="stat-value">{metrics.bmi ?? bmi ?? "--"}</div>
             <div className="stat-sub">{bmiStatus}</div>
             <div className="stat-desc">(Chỉ số cơ thể)</div>
           </div>
+          {/* BMR */}
           <div className="stat-card">
             <div className="stat-title">BMR</div>
-            <div className="stat-value">
-              {metrics.bmr ? `${metrics.bmr} kcal/ngày` : "--"}
-            </div>
+            <div className="stat-value">{metrics.bmr ? `${metrics.bmr} kcal/ngày` : "--"}</div>
             <div className="stat-desc">(Tỷ lệ trao đổi chất cơ bản)</div>
           </div>
+          {/* % Mỡ */}
           <div className="stat-card">
             <div className="stat-title">% Mỡ</div>
             <div className="stat-value">{metrics.body_fat_pct != null ? `${metrics.body_fat_pct}%` : "--"}</div>
             <div className="stat-desc">(Tỷ lệ mỡ/thể trọng)</div>
           </div>
+          {/* TDEE */}
           <div className="stat-card">
             <div className="stat-title">TDEE</div>
-            <div className="stat-value">
-              {metrics.tdee ? `${metrics.tdee} kcal/ngày` : "--"}
-            </div>
-            <div className="stat-desc">
-              (Tổng năng lượng cần tiêu thụ hàng ngày)
-            </div>
+            <div className="stat-value">{metrics.tdee ? `${metrics.tdee} kcal/ngày` : "--"}</div>
+            <div className="stat-desc">(Tổng năng lượng cần tiêu thụ hàng ngày)</div>
           </div>
+          {/* Fat Mass */}
           <div className="stat-card">
             <div className="stat-title">Fat Mass</div>
             <div className="stat-value">{metrics.fat_mass != null ? `${metrics.fat_mass} kg` : "--"}</div>
             <div className="stat-desc">(Khối mỡ)</div>
           </div>
+          {/* Lean Mass */}
           <div className="stat-card">
             <div className="stat-title">Lean Mass</div>
             <div className="stat-value">{metrics.lean_mass != null ? `${metrics.lean_mass} kg` : "--"}</div>
             <div className="stat-desc">(Khối cơ tổng)</div>
           </div>
+          {/* Waist/Hip Ratio */}
           <div className="stat-card">
             <div className="stat-title">Tỷ lệ eo/hông</div>
             <div className="stat-value">{metrics.waist_hip_ratio != null ? metrics.waist_hip_ratio : "--"}</div>
@@ -189,24 +186,23 @@ export default function Step6Summary() {
           </div>
         </div>
 
-        {/* Lời khuyên & Cảnh báo */}
+        {/* Lời khuyên & Nguy cơ */}
         <div className="advice-risk">
           <div className="advice-box">
             <strong>Lời khuyên:</strong>
-            {apiAdvice.length > 0
-              ? <ul>{apiAdvice.map((a, i) => <li key={i}>{a}</li>)}</ul>
-              : <p>Đang tải lời khuyên…</p>
-            }
+            {apiAdvice.length
+              ? <ul>{apiAdvice.map((a,i)=><li key={i}>{a}</li>)}</ul>
+              : <p>Đang tải lời khuyên…</p>}
           </div>
           <div className="risk-box">
             <strong>Cảnh báo nguy cơ:</strong>
-            {apiRisks.length > 0
-              ? <ul>{apiRisks.map((r, i) => <li key={i}>{r}</li>)}</ul>
-              : <p>Đang tải cảnh báo…</p>
-            }
+            {apiRisks.length
+              ? <ul>{apiRisks.map((r,i)=><li key={i}>{r}</li>)}</ul>
+              : <p>Đang tải cảnh báo…</p>}
           </div>
         </div>
 
+        {/* Actions */}
         <div className="step6-actions">
           <button className="next-btn" onClick={handleNext}>Tiếp tục →</button>
         </div>

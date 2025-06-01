@@ -19,7 +19,7 @@ body {
   margin: 0;
   background: var(--bg-body);
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  color: var(--text-primary);
+  
 }
 
 .step12-container {

@@ -14,45 +14,46 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+
 class AuthController extends Controller
 {
     //điểu kiện otpotp
     protected function ensureOtpCanBeSent(string $email)
-{
-    // Key phân biệt theo ngày
-    $today       = Carbon::today()->toDateString(); // "2025-05-07"
-    $countKey    = "otp_daily_count_{$email}_{$today}";
-    $lastSentKey = "otp_last_sent_{$email}";
+    {
+        // Key phân biệt theo ngày
+        $today       = Carbon::today()->toDateString(); // "2025-05-07"
+        $countKey    = "otp_daily_count_{$email}_{$today}";
+        $lastSentKey = "otp_last_sent_{$email}";
 
-    // 1) Khởi tạo bộ đếm nếu chưa có, hết hạn đúng lúc 00:00 ngày mai
-    if (! Cache::has($countKey)) {
-        Cache::put($countKey, 0, Carbon::now()->endOfDay());
-    }
-
-    // 2) Giới hạn 6 OTP/ngày
-    $sentToday = Cache::get($countKey);
-    if ($sentToday >= 36) {
-        throw new HttpResponseException(response()->json([
-            'message' => 'Bạn đã gửi OTP quá 6 lần hôm nay.'
-        ], 429));
-    }
-
-    // 3) Giới hạn 1 OTP mỗi 60s
-    if (Cache::has($lastSentKey)) {
-        $diff = Carbon::now()->diffInSeconds(Carbon::parse(Cache::get($lastSentKey)));
-        if ($diff < 60) {
-            throw new HttpResponseException(
-                response()->json([
-                    'message' => 'Vui lòng chờ ít nhất 1 phút trước khi gửi lại OTP.'
-                ], 429)
-            );
+        // 1) Khởi tạo bộ đếm nếu chưa có, hết hạn đúng lúc 00:00 ngày mai
+        if (! Cache::has($countKey)) {
+            Cache::put($countKey, 0, Carbon::now()->endOfDay());
         }
-    }
 
-    // 4) Tăng bộ đếm và lưu timestamp lần này (TTL 60s)
-    Cache::increment($countKey);
-    Cache::put($lastSentKey, Carbon::now()->toDateTimeString(), now()->addSeconds(60));
-}
+        // 2) Giới hạn 6 OTP/ngày
+        $sentToday = Cache::get($countKey);
+        if ($sentToday >= 46) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Bạn đã gửi OTP quá 6 lần hôm nay.'
+            ], 429));
+        }
+
+        // 3) Giới hạn 1 OTP mỗi 60s
+        if (Cache::has($lastSentKey)) {
+            $diff = Carbon::now()->diffInSeconds(Carbon::parse(Cache::get($lastSentKey)));
+            if ($diff < 60) {
+                throw new HttpResponseException(
+                    response()->json([
+                        'message' => 'Vui lòng chờ ít nhất 1 phút trước khi gửi lại OTP.'
+                    ], 429)
+                );
+            }
+        }
+
+        // 4) Tăng bộ đếm và lưu timestamp lần này (TTL 60s)
+        Cache::increment($countKey);
+        Cache::put($lastSentKey, Carbon::now()->toDateTimeString(), now()->addSeconds(60));
+    }
     //check username
     public function checkUsername(Request $request)
     {
@@ -79,27 +80,29 @@ class AuthController extends Controller
             'email'    => 'required|email',
             'name'     => 'required|string|max:255',
             'birth'    => 'required|date',
+            'age'      => 'required|integer|min:1|max:120',  // Thêm validate cho tuổi
+            'gender'   => 'required|in:Nam,Nữ,Khác',
         ], [
             // Username
             'username.required'    => 'Vui lòng nhập tên người dùng.',
             'username.alpha_dash'  => 'Tên người dùng chỉ được chứa chữ cái, số, gạch ngang và gạch dưới.',
             'username.max'         => 'Tên người dùng không được vượt quá :max ký tự.',
             'username.unique'      => 'Tên người dùng này đã tồn tại.',
-        
+
             // Email
             'email.required'       => 'Vui lòng nhập email.',
             'email.email'          => 'Định dạng email không hợp lệ.',
-        
+
             // Name
             'name.required'        => 'Vui lòng nhập họ và tên.',
             'name.string'          => 'Họ và tên phải là chuỗi ký tự.',
             'name.max'             => 'Họ và tên không được vượt quá :max ký tự.',
-        
+
             // Birth
             'birth.required'       => 'Vui lòng nhập ngày sinh.',
             'birth.date'           => 'Định dạng ngày sinh không hợp lệ.',
         ]);
-        
+
 
         if (User::where('email', $data['email'])->exists()) {
             return response()->json(['message' => 'Email này đã tồn tại.'], 422);
@@ -117,6 +120,8 @@ class AuthController extends Controller
             'username'  => $data['username'],
             'name'  => $data['name'],
             'birth' => $data['birth'],
+              'age' => $data['age'],
+                'gender' => $data['gender'],
         ], now()->addMinutes(60));
 
         // Gửi email OTP
@@ -166,13 +171,13 @@ class AuthController extends Controller
             'otp.required'   => 'Vui lòng nhập mã OTP.',
             'otp.digits'     => 'Mã OTP phải gồm :digits chữ số.',
         ]);
-    
+
         $email      = strtolower(trim($data['email']));
         $regKey     = "register_{$email}";
         $otpKey     = "otp_{$email}";
         $verifyKey  = "otp_verified_register_{$email}";
         $extendMin  = 10;  // thêm 10 phút cho phép đặt mật khẩu
-    
+
         // 2) Lấy thông tin đăng ký, nếu không có → hết phiên đăng ký
         $regInfo = Cache::get($regKey);
         if (! $regInfo) {
@@ -180,7 +185,7 @@ class AuthController extends Controller
                 'message' => 'Phiên đăng ký đã hết hạn. Vui lòng đăng ký lại.'
             ], 400);
         }
-    
+
         // 3) Lấy và kiểm tra OTP
         $otpData = Cache::get($otpKey);
         if (! $otpData) {
@@ -193,21 +198,21 @@ class AuthController extends Controller
                 'message' => 'Mã OTP không đúng. Vui lòng thử lại.'
             ], 400);
         }
-    
+
         // 4) Đánh dấu đã verify OTP: TTL = X phút
         Cache::put($verifyKey, true, now()->addMinutes($extendMin));
-    
+
         // 5) Kéo dài thời gian lưu trữ thông tin đăng ký thêm X phút
         //    (Override cache để reset lại TTL)
         Cache::put($regKey, $regInfo, now()->addMinutes($extendMin));
-    
+
         return response()->json([
             'message' => "Xác thực OTP thành công! Bạn có {$extendMin} phút để đặt mật khẩu."
         ], 200);
     }
-    
+
     //bước để đặt mật khẩu 
- 
+
 
     public function setPassword(Request $request)
     {
@@ -222,24 +227,24 @@ class AuthController extends Controller
             'password.min'         => 'Mật khẩu phải có ít nhất :min ký tự.',
             'password.confirmed'   => 'Xác nhận mật khẩu không khớp.',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'message' => implode(' ', $validator->errors()->all())
             ], 422);
         }
-    
+
         $email      = strtolower(trim($request->email));
         $cacheKey   = "register_{$email}";
         $otpVerKey  = "otp_verified_register_{$email}";
-    
+
         // 2) Đảm bảo user đã xác thực OTP
         if (! Cache::get($otpVerKey)) {
             return response()->json([
                 'message' => 'Phiên đăng ký đã hết hạn. Vui lòng quay lại bước đăng ký để đăng ký lại thông tin.'
             ], 400);
         }
-    
+
         // 3) Kiểm tra thông tin đăng ký còn lưu trong cache không
         $regInfo = Cache::get($cacheKey);
         if (! $regInfo) {
@@ -247,32 +252,35 @@ class AuthController extends Controller
                 'message' => 'Phiên đăng ký đã hết hạn. Vui lòng thực hiện đăng ký lại từ đầu.'
             ], 400);
         }
-    
+
         // 4) Tạo user mới kèm password
         $user = User::create([
             'username'           => $regInfo['username'],
             'name'               => $regInfo['name'],
             'email'              => $email,
             'birth'              => $regInfo['birth'],
+                  'age' => $regInfo['age'],
+                'gender' => $regInfo['gender'],
             'password'           => Hash::make($request->password),
             'email_verified_at'  => now(),
         ]);
-    
+
         // 5) Dọn sạch cache liên quan
         Cache::forget($cacheKey);
         Cache::forget("otp_register_{$email}");
         Cache::forget($otpVerKey);
-    
-        // 6) Phát token và trả về
+
+        // 6) Phát token và trả về kèm user_id
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => JWTAuth::factory()->getTTL() * 60,
-            'message'      => 'Đăng ký hoàn tất! Bạn có thể sử dụng tài khoản ngay bây giờ.'
+            'message'      => 'Đăng ký hoàn tất! Bạn có thể sử dụng tài khoản ngay bây giờ.',
+            'user_id'      => $user->user_id,   // thêm dòng này
         ], 201);
     }
-    
+
 
 
     //bước đăng nhập 
@@ -316,7 +324,7 @@ class AuthController extends Controller
         $data  = $request->validate(['email' => 'required|email'], [
             'email.required' => 'Vui lòng nhập email.',
             'email.email'    => 'Định dạng email không hợp lệ.',
-        
+
         ]);
         $email = $data['email'];
 
@@ -371,7 +379,7 @@ class AuthController extends Controller
      */
     public function verifyForgotPasswordOtp(Request $request)
     {
-       
+
         $data = $request->validate([
             'email' => 'required|email',
             'otp'   => 'required|digits:6',
@@ -399,20 +407,21 @@ class AuthController extends Controller
      * Quên mật khẩu - Bước 3: Đặt lại mật khẩu
      */
     public function resetPassword(Request $request)
-    {$data = $request->validate([
-        'email'                      => 'required|email|exists:users,email',
-        'new_password'               => 'required|min:8|confirmed',
-        'new_password_confirmation'  => 'required',
-    ], [
-        'email.required'             => 'Vui lòng nhập email.',
-        'email.email'                => 'Định dạng email không hợp lệ.',
-        'email.exists'               => 'Email này chưa được đăng ký.',
-        'new_password.required'      => 'Vui lòng nhập mật khẩu mới.',
-        'new_password.min'           => 'Mật khẩu mới phải có ít nhất :min ký tự.',
-        'new_password.confirmed'     => 'Xác nhận mật khẩu không khớp.',
-        'new_password_confirmation.required' 
-                                     => 'Vui lòng nhập lại mật khẩu để xác nhận.',
-    ]);
+    {
+        $data = $request->validate([
+            'email'                      => 'required|email|exists:users,email',
+            'new_password'               => 'required|min:8|confirmed',
+            'new_password_confirmation'  => 'required',
+        ], [
+            'email.required'             => 'Vui lòng nhập email.',
+            'email.email'                => 'Định dạng email không hợp lệ.',
+            'email.exists'               => 'Email này chưa được đăng ký.',
+            'new_password.required'      => 'Vui lòng nhập mật khẩu mới.',
+            'new_password.min'           => 'Mật khẩu mới phải có ít nhất :min ký tự.',
+            'new_password.confirmed'     => 'Xác nhận mật khẩu không khớp.',
+            'new_password_confirmation.required'
+            => 'Vui lòng nhập lại mật khẩu để xác nhận.',
+        ]);
         $email = $data['email'];
 
         if (! Cache::get("otp_forgot_verified_{$email}")) {

@@ -7,3 +7,16 @@
     width: 100%;
    
   }
+  .profile__avatar {
+  display: inline-block;
+  background: #3d4449;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile-dropdown {
+  animation: fadeInDropdown 0.22s cubic-bezier(.41,1.32,.45,.97);
+}
+@keyframes fadeInDropdown {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}

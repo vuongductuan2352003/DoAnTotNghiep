@@ -89,9 +89,9 @@ export default function Step7Goal() {
 
   // 6. Các lựa chọn mục tiêu
   const goalOptions = [
-    { key: 'lose_weight', value: 'Giảm Cân', img: images['male.png'] },
+    { key: 'lose_weight', value: 'Giảm Cân', img: images['gcc.png'] },
     { key: 'reduce_fat', value: 'Giảm Mỡ', img: images['reduce_fat.png'] },
-    { key: 'maintain', value: 'Duy Trì Cân Nặng', img: images['maintain.png'] },
+    { key: 'maintain', value: 'Duy Trì Cân Nặng', img: images['male.png'] },
     { key: 'gain_muscle', value: 'Tăng Cơ Bắp', img: images['gain_muscle.png'] },
     { key: 'gain_weight', value: 'Tăng Cân', img: images['gain_weight.png'] },
   ];
@@ -173,7 +173,6 @@ export default function Step7Goal() {
 
   return (
     <div className="step7-container">
-      <button onClick={handleBack} className="step7-back-btn">← Quay lại</button>
       <h2 className="step7-title">Chọn mục tiêu của bạn</h2>
 
       {bmi != null && (

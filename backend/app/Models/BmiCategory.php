@@ -28,4 +28,10 @@ class BmiCategory extends Model
         'advice_male'  => 'array',
         'advice_female'=> 'array',
     ];
+    public function bodyMeasurements()
+{
+    // Nếu là 1-n (1 user có nhiều body_measurements)
+    return $this->hasMany(\App\Models\BodyMeasurement::class, 'user_id', 'user_id');
+    // Nếu chỉ có 1 record thì dùng hasOne thay cho hasMany
+}
 }

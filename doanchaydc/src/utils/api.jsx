@@ -43,12 +43,15 @@ api.interceptors.request.use(
 
 // 2. Response interceptor: xử lý thành công (toast) và lỗi (refresh + toast)
 api.interceptors.response.use(
+  
   // Khi response OK
   response => {
+     const disableToast = response.config?.disableToast;
     const msg = response.data?.message;
-    if (msg) toast.success(msg);
+    if (msg && !disableToast) toast.success(msg);
     return response;
   },
+  
   error => {
     const originalReq = error.config;
 

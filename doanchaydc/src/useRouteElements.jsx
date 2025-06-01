@@ -1,6 +1,7 @@
 import { useRoutes, useLocation, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HomeLayout from "./layouts/HomeLayout";
+import HomeLayout2 from "./layouts/HomeLayout2";
 import TrangChu from "./pages/TrangChu/TrangChu";
 import AddData from "./pages/AddData/AddData";
 import GioiThieuWeb from "./pages/GioiThieuWeb/GioiThieuWeb";
@@ -52,11 +53,18 @@ import Step33 from "./pages/GetData/Step33";
 import Step34 from "./pages/GetData/Step34";
 import Step35 from "./pages/GetData/Step35";
 import Step36 from "./pages/GetData/Step36";
+import Profile  from "./pages/Profile/Profile";
 const isAuth = () => Boolean(localStorage.getItem("access_token"));
 
 function PublicRoute({ children }) {
-  // nếu đã login, redirect về Trang-chu
-  return !isAuth() ? children : <Navigate to="/Trang-chu" replace />;
+  const location = useLocation();
+  const path = location.pathname;
+
+  // Nếu đã đăng nhập, chỉ cho phép /com và /Khoa-Hoc
+  if (isAuth() && path !== "/com" && path !== "/Khoa-Hoc") {
+    return <Navigate to="/com" replace />;
+  }
+  return children;
 }
 
 function PrivateRoute({ children }) {
@@ -77,11 +85,9 @@ export default function useRouteElements() {
 
   // Hiển thị Loading 1.5s khi chuyển route
   useEffect(() => {
-    // nếu đang trong /body-building/* thì bỏ qua loading
     if (location.pathname.startsWith("/body-building")) {
       return;
     }
-    // còn lại vẫn show loading 1.5s
     setLoading(true);
     const t = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(t);
@@ -91,13 +97,15 @@ export default function useRouteElements() {
     {
       path: "/",
       element: (
-        <>
-          <PageTitle title="Fitness & Health" />
-          <AddDataLayouts>
-            <GioiThieuWeb />
-          </AddDataLayouts>
-          <Footer></Footer>
-        </>
+        <PublicRoute>
+          <>
+            <PageTitle title="Fitness & Health" />
+            <AddDataLayouts>
+              <GioiThieuWeb />
+            </AddDataLayouts>
+            <Footer></Footer>
+          </>
+        </PublicRoute>
       ),
     },
 
@@ -112,7 +120,6 @@ export default function useRouteElements() {
         </PublicRoute>
       ),
     },
-    // register
     {
       path: "/Register",
       element: (
@@ -127,20 +134,22 @@ export default function useRouteElements() {
     {
       path: "/forgot-password",
       element: (
-        <>
-          <PageTitle title="Quên mật khẩu" />
-          <PublicRoute>
+        <PublicRoute>
+          <>
+            <PageTitle title="Quên mật khẩu" />
             <ForgotPassword />
-          </PublicRoute>
-        </>
+          </>
+        </PublicRoute>
       ),
     },
     {
       path: "/body-building",
       element: (
-        <AddDataLayouts>
-          <GetData /> {/* Đây là wrapper với <Outlet> */}
-        </AddDataLayouts>
+        <PublicRoute>
+          <AddDataLayouts>
+            <GetData /> {/* Đây là wrapper với <Outlet> */}
+          </AddDataLayouts>
+        </PublicRoute>
       ),
       children: [
         { index: true, element: <Navigate to="step1" replace /> },
@@ -180,25 +189,9 @@ export default function useRouteElements() {
         { path: "step34", element: <Step34 /> },
         { path: "step35", element: <Step35 /> },
         { path: "step36", element: <Step36 /> },
-
-        // … nếu còn bước 4,5… tiếp tục khai báo ở đây
       ],
     },
 
-    // --- các route khác của bạn ---
-    { path: "*", element: <Navigate to="/body-building" replace /> },
-    // {
-    //   path: '/body-building',
-    //   element: (
-    //     <PublicRoute>
-    //       <>
-    //         <PageTitle title="Body Building" />
-
-    //         <AddDataLayouts><AddData /></AddDataLayouts>
-    //       </>
-    //     </PublicRoute>
-    //   ),
-    // },
     {
       path: "/set-body-18-29",
       element: (
@@ -252,8 +245,7 @@ export default function useRouteElements() {
       ),
     },
 
-    //trang chu -- auth
-
+    // ----------- CHỈ DÀNH CHO ĐÃ LOGIN -----------
     {
       path: "/com",
       element: (
@@ -276,6 +268,18 @@ export default function useRouteElements() {
         </PrivateRoute>
       ),
     },
+     {
+      path: "/Ho-So",
+      element: (
+        <PrivateRoute>
+          <HomeLayout2>
+            <PageTitle title="Profile" />
+            <Profile />
+          </HomeLayout2>
+        </PrivateRoute>
+      ),
+    },
+
 
     // --- FALLBACK ---
     {

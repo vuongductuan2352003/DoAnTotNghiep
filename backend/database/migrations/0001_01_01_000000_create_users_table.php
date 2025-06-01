@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+             $table->increments('user_id');
 
         // Cá nhân
         $table->string('username', 30)->unique();
@@ -31,7 +31,8 @@ return new class extends Migration
         $table->date('birth')->nullable();
         $table->string('email', 255)->unique();
         $table->timestamp('email_verified_at')->nullable();
-
+         $table->string('gender')->nullable();
+            $table->integer('age')->nullable();
         // Bảo mật
         $table->string('password', 255)->nullable();
         $table->rememberToken();

@@ -1,0 +1,781 @@
+/* src/styles/Profile.css */
+
+/* ----------------------------------------------
+   CHUNG CHO TOÀN BỘ PROFILE MAIN
+---------------------------------------------- */
+.profile-main {
+  max-width: 968px;
+  margin: 0 auto;                /* căn giữa */
+  padding: 2rem 1rem;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+ 
+
+  /* Cho phép cuộn dọc khi nội dung vượt quá khung */
+  overflow-y: auto;
+  /* Hiệu ứng chuyển động mượt mà khi scroll */
+  scroll-behavior: smooth;
+}
+
+/* Ẩn thanh cuộn dọc toàn cục */
+.profile-main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.profile-main {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Loading / Error */
+.pm-loading,
+.pm-error {
+  color: #ffffff;
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1.2rem;
+}
+
+/* ----------------------------------------------
+   0. HEADER NHỎ (Tên – Được xác nhận – Chỉnh sửa hồ sơ)
+---------------------------------------------- */
+.pm-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.pm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.pm-header-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+.pm-verified-text {
+  font-size: 0.9rem;
+  color: #1da1f2;
+  background-color: rgba(29, 161, 242, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.25rem;
+}
+.pm-header-right .pm-edit-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #1da1f2;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.pm-header-right .pm-edit-btn:hover {
+  background-color: #1da1f2;
+  color: #ffffff;
+  border-color: #1da1f2;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------
+   1. AVATAR + COVER + THÔNG TIN CƠ BẢN
+---------------------------------------------- */
+.pm-top {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+/* Placeholder khung Cover (chỉ background xám) */
+.pm-cover-placeholder {
+  width: 100%;
+  height: 120px;
+  background-color: #2e3238;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* Vòng avatar bo tròn, border xanh, shadow */
+.pm-avatar-wrapper {
+  position: absolute;
+  top: 60px;               /* đưa avatar overlap lên cover */
+  left: 2rem;
+  width: 120px;
+  height: 120px;
+  border: 4px solid #354ed5;
+  border-radius: 50%;
+  background-color: #242b3a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  /* Hiệu ứng mờ dần khi load */
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.pm-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Thông tin cơ bản: handle, join date, stats */
+.pm-basic-info {
+  padding: 80px 0 0 160px; /* padding-left đủ để tránh avatar */
+}
+.pm-handle {
+  font-size: 1rem;
+  color: #90a4c8;
+  margin-bottom: 0.25rem;
+}
+.pm-join-date {
+  font-size: 0.85rem;
+  color: #aaaaaa;
+  margin-bottom: 0.75rem;
+}
+.pm-stats-row {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 0.9rem;
+}
+.pm-stats-row span {
+  color: #eeeeee;
+}
+.pm-stats-row b {
+  font-weight: 600;
+}
+
+/* ----------------------------------------------
+   2. TABS GIỐNG TWITTER
+---------------------------------------------- */
+.pm-tabs {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid #333333;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;       /* Nếu tab dài, cuộn ngang */
+  scrollbar-width: none; /* Firefox ẩn scrollbar */
+}
+.pm-tabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari ẩn scrollbar */
+}
+.pm-tab {
+  padding-bottom: 1rem;
+  font-size: 1rem;
+  color: #aaaaaa;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.pm-tab:hover {
+  color: #ffffff;
+}
+.pm-tab--active {
+  color: #ffffff;
+}
+.pm-tab--active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #1da1f2;
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------
+   3. DIVIDER TẠO NGĂN CÁCH
+---------------------------------------------- */
+.pm-divider {
+  height: 1px;
+  background-color: #333333;
+  margin: 2rem 0;
+}
+
+/* ----------------------------------------------
+   4. TIÊU ĐỀ PHẦN “DỮ LIỆU CƠ THỂ”
+---------------------------------------------- */
+.pm-body-section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.pm-body-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+.pm-body-subtitle {
+  font-size: 1rem;
+  color: #cccccc;
+  line-height: 1.5;
+}
+
+/* ----------------------------------------------
+   5. QUÁ TRÌNH BIẾN ĐỔI CƠ THỂ
+---------------------------------------------- */
+.pm-section.pm-transform {
+  margin-bottom: 3rem;
+}
+.pm-section-title-sm {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+/* Container hình ảnh Before / Arrow / After */
+.pm-transform-images {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pm-transform-images > div {
+  flex: 1 1 150px;
+  text-align: center;
+}
+
+/* Block “Before” và “After” */
+.pm-before,
+.pm-after {
+  position: relative;
+}
+.pm-transform-img {
+  width: 100%;
+  max-width: 160px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pm-transform-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+.pm-label-top {
+  position: absolute;
+  top: -1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Ảnh mũi tên */
+.pm-arrow img.pm-arrow-img {
+  width: 60px;
+  height: auto;
+  opacity: 0.6;
+}
+
+/* Bảng thông số biến đổi */
+.pm-transform-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.pm-col {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease;
+}
+.pm-col:hover {
+  background-color: #2a313c;
+}
+.pm-col-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+.pm-col-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+.pm-item-label {
+  color: #bbbbbb;
+}
+.pm-item-value {
+  font-weight: 600;
+  color: #ffffff;
+}
+.pm-item-value--red {
+  color: #ff5722;
+}
+.pm-muscle-bars {
+  display: flex;
+  gap: 0.25rem;
+}
+.pm-bar-active {
+  width: 16px;
+  height: 4px;
+  background-color: #ff5722;
+  border-radius: 2px;
+}
+.pm-bar-inactive {
+  width: 16px;
+  height: 4px;
+  background-color: #442410;
+  border-radius: 2px;
+}
+.pm-transform-note {
+  font-size: 0.85rem;
+  color: #888888;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* ----------------------------------------------
+   6. TÓM TẮT CÁ NHÂN (BMI, CALO, NƯỚC)
+---------------------------------------------- */
+.pm-bmi-card {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+  transition: background-color 0.2s ease;
+}
+.pm-bmi-card:hover {
+  background-color: #2a313c;
+}
+.pm-bmi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #cccccc;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+.pm-info-icon {
+  font-size: 1rem;
+}
+.pm-bmi-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+.pm-bmi-scale {
+  position: relative;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    #4a90e2,
+    #a8e063,
+    #ff5e62
+  );
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.pm-scale-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  background-color: transparent;
+}
+.pm-scale-marker {
+  position: absolute;
+  top: -4px;
+  width: 12px;
+  height: 16px;
+  background-color: #ffffff;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.pm-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  margin-top: 0.25rem;
+}
+.pm-bmi-status {
+  color: #ff5722;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.pm-bmi-desc {
+  color: #cccccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.pm-calorie-water {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pm-card-small {
+  flex: 1 1 260px;
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+.pm-card-small:hover {
+  background-color: #2a313c;
+}
+.pm-small-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+.pm-small-icon {
+  font-size: 1.2rem;
+}
+.pm-suggested-badge {
+  margin-left: auto;
+  background-color: transparent;
+  border: 1px solid #ff5722;
+  color: #ff5722;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 2rem;
+}
+.pm-small-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+.pm-slider-bg {
+  position: relative;
+  height: 8px;
+  background-color: #2e3238;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.pm-slider-thumb {
+  position: absolute;
+  top: -4px;
+  width: 16px;
+  height: 16px;
+  background-color: #ff5722;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+}
+.pm-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+.pm-water-icons {
+  display: flex;
+  gap: 0.3rem;
+}
+.pm-cup {
+  width: 20px;
+  height: 28px;
+  border: 2px solid #888888;
+  border-radius: 4px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+.pm-cup:hover {
+  border-color: #4a90e2;
+}
+.pm-cup--full::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background-color: #4a90e2;
+}
+.pm-cup--empty::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: transparent;
+}
+
+/* ----------------------------------------------
+   7. KẾ HOẠCH CÁ NHÂN
+---------------------------------------------- */
+.pm-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.pm-plan-item {
+  display: flex;
+  align-items: center;
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease;
+}
+.pm-plan-item:hover {
+  background-color: #2a313c;
+}
+.pm-plan-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 0.75rem;
+  filter: invert(100%);
+}
+.pm-plan-info {
+  display: flex;
+  flex-direction: column;
+}
+.pm-plan-label {
+  font-size: 0.9rem;
+  color: #cccccc;
+}
+.pm-plan-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.pm-plan-goals {
+  margin-top: 1.5rem;
+}
+.pm-goals-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+.pm-extra-goals-list {
+  list-style: none;
+  padding-left: 1rem;
+}
+.pm-extra-goals-list li {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+/* ----------------------------------------------
+   8. CÁC SỐ ĐO KHÁC (Ô VUÔNG)
+---------------------------------------------- */
+.pm-measurement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.pm-measurement-box {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease;
+}
+.pm-measurement-box:hover {
+  background-color: #2a313c;
+}
+.pm-measure-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #bbbbbb;
+  margin-bottom: 0.4rem;
+  text-transform: capitalize;
+}
+.pm-measure-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ----------------------------------------------
+   9. THÓI QUEN SINH HOẠT
+---------------------------------------------- */
+.pm-habits-list {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.pm-habits-list div {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+.pm-habits-list strong {
+  color: #a0e063;
+}
+
+/* ----------------------------------------------
+   10. SỞ THÍCH & HOẠT ĐỘNG
+---------------------------------------------- */
+.pm-activity-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.pm-activity-list li {
+  background-color: #2e3238;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.pm-activity-list li:hover {
+  background-color: #354ed5;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------
+   11. LỊCH TẬP LUYỆN TRONG TUẦN
+---------------------------------------------- */
+.pm-schedule-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+.pm-schedule-list li {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.pm-schedule-list li:hover {
+  background-color: #354ed5;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------
+   12. VÙNG TẬP TRUNG
+---------------------------------------------- */
+.pm-region-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.pm-region-list li {
+  background-color: #2e3238;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.95rem;
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.pm-region-list li:hover {
+  background-color: #a8e063;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------
+   13. THỰC ĐƠN YÊU THÍCH
+---------------------------------------------- */
+.pm-food-details {
+  background-color: #232a34;
+  border-radius: 0.75rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.pm-food-details div {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+.pm-food-details strong {
+  color: #a8e063;
+}
+.pm-food-list-group {
+  margin-top: 0.5rem;
+}
+.pm-food-category-block {
+  margin-bottom: 0.5rem;
+}
+.pm-food-category-label {
+  color: #a8e063;
+  font-weight: 600;
+}
+.pm-food-category-items {
+  color: #ffffff;
+}
+
+/* ----------------------------------------------
+   14. VẤN ĐỀ & MỤC TIÊU
+---------------------------------------------- */
+.pm-problem-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+.pm-problem-list li {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-left: 1.2rem;
+}
+.pm-problem-list li::before {
+  content: "•";
+  color: #ff5e62;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.pm-extra-goals-list {
+  list-style: none;
+  padding-left: 1rem;
+}
+.pm-extra-goals-list li {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-left: 1.4rem;
+}
+.pm-extra-goals-list li::before {
+  content: "✔︎";
+  color: #a8e063;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* ----------------------------------------------
+   15. CÁC CHỈ SỐ TÍNH TOÁN CHUNG (nếu cần riêng lưới khác)
+---------------------------------------------- */
+.pm-calculated-metrics .pm-section-title-sm {
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------------------------------------------
+   Lưu ý:
+   1. Đã ẩn hoàn toàn phần “Sự kiện nổi bật” và button Premium theo yêu cầu.
+   2. Ẩn thanh cuộn dọc (.profile-main::-webkit-scrollbar) để giao diện gọn hơn.
+   3. “Thực phẩm ưa thích” được gom nhóm theo danh mục, hiển thị dưới dạng:
+        Ngũ cốc: Gạo, Diêm mạch, Cơm couscous, ...
+        Rau: Bông cải xanh, Súp lơ, ...
+   4. “Vấn đề” và “Mục tiêu” được thiết kế với dấu • và ✔︎, màu sắc dễ nhìn.
+   5. Các ô, card, pills, list đều có hiệu ứng hover mượt mà, đổ bóng và đổi màu nền.
+
+   Khi bạn lưu file CSS & JS này vào dự án, tất cả layout, style và hiệu ứng 
+   sẽ được áp dụng đầy đủ (như yêu cầu: không hiện “Sự kiện nổi bật”, không cuộn dấu, 
+   danh sách favorite foods đẹp, ...) 
+------------------------------------------------------------------------------------------------ */

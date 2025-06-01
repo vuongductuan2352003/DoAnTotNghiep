@@ -18,9 +18,13 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var list<string>
      */
+ protected $primaryKey = 'user_id'; 
     protected $fillable = [
         'username',
+        
         'name',
+       'gender',
+       'age',
         'bio',
         'avatar_path',
         'website',
@@ -32,6 +36,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'email_verified_at',
+
         'role',
     ];
 
@@ -69,4 +74,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+    
+    public function bodyMeasurements() { return $this->hasMany(BodyMeasurement::class, 'user_id'); }
+public function fitnessGoals() { return $this->hasMany(FitnessGoal::class, 'user_id'); }
+public function trainingPreferences() { return $this->hasMany(TrainingPreference::class, 'user_id'); }
+public function foodPreferences() { return $this->hasMany(FoodPreference::class, 'user_id'); }
+public function lifestyleHabits() { return $this->hasMany(LifestyleHabit::class, 'user_id'); }
+public function currentHealthMetrics() { return $this->hasMany(CurrentHealthMetric::class, 'user_id'); }
+public function projectedHealthMetrics() { return $this->hasMany(ProjectedHealthMetric::class, 'user_id'); }
+public function userProblemsGoals() { return $this->hasMany(UserProblemsGoal::class, 'user_id'); }
+
 }

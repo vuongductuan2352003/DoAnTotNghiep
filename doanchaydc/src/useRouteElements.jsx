@@ -9,10 +9,8 @@ import AddDataLayouts from "./layouts/AddDataLayout";
 import Loading from "./pages/Loading/Loading";
 import Login from "./pages/Account/Login/Login";
 import Register from "./pages/Account/Register/Register";
-import Data18_29 from "./pages/Data18_29/Data18_29";
-import Data30_39 from "./pages/Data30_39/Data30_39";
-import Data40_49 from "./pages/Data40_49/Data40_49";
-import Data50up from "./pages/Data50+/Data50up";
+
+
 import KhoaHoc from "./pages/KhoaHoc/KhoaHoc";
 import ForgotPassword from "./pages/Account/ForgotPassword/ForgotPassword";
 import Footer from "./components/Footer";
@@ -54,6 +52,8 @@ import Step34 from "./pages/GetData/Step34";
 import Step35 from "./pages/GetData/Step35";
 import Step36 from "./pages/GetData/Step36";
 import Profile  from "./pages/Profile/Profile";
+import Admin from "./pages/Admin/AdminPanel";
+
 const isAuth = () => Boolean(localStorage.getItem("access_token"));
 
 function PublicRoute({ children }) {
@@ -192,59 +192,8 @@ export default function useRouteElements() {
       ],
     },
 
-    {
-      path: "/set-body-18-29",
-      element: (
-        <PublicRoute>
-          <>
-            <PageTitle title="18-29" />
-            <AddDataLayouts>
-              <Data18_29 />
-            </AddDataLayouts>
-          </>
-        </PublicRoute>
-      ),
-    },
-    {
-      path: "/set-body-30-39",
-      element: (
-        <PublicRoute>
-          <>
-            <PageTitle title="30-39" />
-            <AddDataLayouts>
-              <Data30_39 />
-            </AddDataLayouts>
-          </>
-        </PublicRoute>
-      ),
-    },
-    {
-      path: "/set-body-40-49",
-      element: (
-        <PublicRoute>
-          <>
-            <PageTitle title="40-49" />
-            <AddDataLayouts>
-              <Data40_49 />
-            </AddDataLayouts>
-          </>
-        </PublicRoute>
-      ),
-    },
-    {
-      path: "/set-body-50up",
-      element: (
-        <PublicRoute>
-          <>
-            <PageTitle title="50+" />
-            <AddDataLayouts>
-              <Data50up />
-            </AddDataLayouts>
-          </>
-        </PublicRoute>
-      ),
-    },
-
+  
+   
     // ----------- CHỈ DÀNH CHO ĐÃ LOGIN -----------
     {
       path: "/com",
@@ -280,7 +229,17 @@ export default function useRouteElements() {
       ),
     },
 
-
+ {
+      path: "/Admin",
+      element: (
+        <PrivateRoute>
+          <>
+            <PageTitle title="Quan Tri Vien" />
+            <Admin/>
+          </>
+        </PrivateRoute>
+      ),
+    },
     // --- FALLBACK ---
     {
       path: "*",

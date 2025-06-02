@@ -1,0 +1,523 @@
+/* src/styles/MainPost.css */
+
+/* ========================= Reset chung ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f2f5;
+  color: #000000;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Wrapper chính chứa feed */
+.main-feed-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+/* ========================= Tabs (Dành cho bạn / Đang theo dõi) ========================= */
+.tabs-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555555;
+  transition: background 0.3s, color 0.3s;
+}
+
+.tab-item:hover {
+  background-color: #f5f5f5;
+}
+
+.tab-item.active {
+  color: #1877f2;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background-color: #1877f2;
+  border-radius: 2px;
+}
+
+/* ========================= Create Post (Đăng bài) ========================= */
+.create-post-container {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.create-post-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.create-post-form {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.create-post-input {
+  width: 100%;
+  background-color: #f0f2f5;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  resize: none;
+  font-size: 14px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.create-post-input::placeholder {
+  color: #888888;
+}
+
+.create-post-input:focus {
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.create-post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.action-icons i {
+  font-size: 18px;
+  color: #555555;
+  margin-right: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.action-icons i:hover {
+  color: #1877f2;
+}
+
+.create-post-btn {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.create-post-btn:disabled {
+  background-color: #9cb4d8;
+  cursor: not-allowed;
+}
+
+.create-post-btn:hover:not(:disabled) {
+  background-color: #1558b0;
+  transform: translateY(-1px);
+}
+
+.create-post-error {
+  margin-top: 8px;
+}
+
+.create-post-error p {
+  color: #e63946;
+  font-size: 13px;
+}
+
+/* ========================= Loading & Error chung ========================= */
+.feed-loading,
+.feed-error {
+  text-align: center;
+  padding: 16px;
+  color: #777;
+}
+
+/* ========================= Danh sách posts ========================= */
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ========================= Mỗi post ========================= */
+.single-post {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Nếu post đang expanded (đang show comment) thì có viền xanh quanh */
+.single-post.expanded {
+  border: 1px solid #1877f2;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.3);
+}
+
+.single-post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Header bài ---------- */
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer; /* click vào area này để mở rộng/collapse */
+}
+
+.post-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-header-info {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-author-top {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-author-name {
+  font-weight: 600;
+  color: #000000;
+  font-size: 15px;
+}
+
+.post-username {
+  font-size: 14px;
+  color: #555555;
+}
+
+.post-time {
+  font-size: 12px;
+  color: #777777;
+  margin-top: 4px;
+}
+
+/* ---------- Nội dung text ---------- */
+.post-content {
+  padding: 8px 16px;
+  font-size: 15px;
+  color: #1c1e21;
+  line-height: 1.5;
+  cursor: pointer; /* click để mở rộng */
+}
+
+/* ---------- Ảnh/Media ---------- */
+.post-media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 16px 0 16px;
+  justify-content: center;
+}
+
+.post-media-img {
+  width: calc(50% - 4px);
+  border-radius: 8px;
+  object-fit: cover;
+  height: 160px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.post-media-img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- Footer (Heart + Comment) ---------- */
+.post-footer {
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 16px 12px 16px;
+  border-top: 1px solid #eee;
+  gap: 24px;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  color: #555555;
+}
+
+.footer-item i {
+  font-size: 18px;
+  margin-right: 6px;
+}
+
+.footer-item span {
+  font-size: 14px;
+}
+
+.footer-item:hover {
+  color: #1877f2;
+  transform: translateY(-1px);
+}
+
+.footer-item.liked {
+  color: #e63946; /* màu đỏ khi like */
+}
+
+.footer-item.liked i {
+  animation: heart-beat 0.3s ease;
+}
+
+/* Hiệu ứng “nhịp tim” cho icon heart khi like */
+@keyframes heart-beat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ========================= Phần Bình luận ========================= */
+.comments-section {
+  background-color: #fafafa;
+  border-top: 1px solid #ddd;
+  padding: 12px 16px;
+}
+
+/* Tiêu đề “Bình luận” */
+.comments-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #050505;
+  margin-bottom: 12px;
+}
+
+/* === Form thêm comment cấp 1 (root) === */
+.add-comment-root {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.comment-avatar-small img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* input thêm bình luận cấp 1 & reply */
+.add-comment-input {
+  flex: 1;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 14px;
+  resize: none;
+  transition: border-color 0.3s;
+}
+
+.add-comment-input:focus {
+  outline: none;
+  border-color: #1877f2;
+}
+
+/* Nút “Bình luận” (cấp 1) */
+.btn-add-comment {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-top: 4px;
+}
+
+.btn-add-comment:hover {
+  background-color: #1558b0;
+  transform: translateY(-1px);
+}
+
+/* Hiển thị khi chưa có comment nào */
+.no-comments {
+  color: #777777;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+/* === Danh sách các comment tree === */
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* === Mỗi comment item === */
+.comment-item {
+  display: flex;
+  gap: 8px;
+}
+
+/* indent theo depth (depth-0: bình luận của post, depth-1: reply, depth-2: reply reply, v.v.) */
+.comment-item.depth-0 {
+  margin-left: 0;
+}
+.comment-item.depth-1 {
+  margin-left: 40px;
+}
+.comment-item.depth-2 {
+  margin-left: 80px;
+}
+.comment-item.depth-3 {
+  margin-left: 120px;
+}
+/* nếu cần re-indent sâu hơn, có thể thêm .depth-4, .depth-5... */
+
+/* Nội dung comment + header, footer */
+.comment-body {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.comment-author-name {
+  font-weight: 600;
+  color: #050505;
+  font-size: 14px;
+}
+
+.comment-username {
+  font-size: 13px;
+  color: #555;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #777;
+}
+
+.comment-content {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #1c1e21;
+}
+
+.comment-footer {
+  display: flex;
+  gap: 24px;
+  margin-top: 6px;
+}
+
+.comment-footer-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  color: #555;
+  font-size: 13px;
+}
+
+.comment-footer-item i {
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+/* Hover đổi màu */
+.comment-footer-item:hover {
+  color: #1877f2;
+  transform: translateY(-1px);
+}
+
+/* Nếu comment đã like */
+.comment-footer-item.liked {
+  color: #e63946;
+}
+
+.comment-footer-item.liked i {
+  animation: heart-beat 0.3s ease;
+}
+
+/* === Form reply (cấp 2, 3,...) === */
+.reply-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Nút Huỷ reply */
+.btn-cancel-reply {
+  background-color: transparent;
+  color: #555;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-cancel-reply:hover {
+  color: #e63946;
+}

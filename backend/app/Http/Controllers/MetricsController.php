@@ -16,8 +16,11 @@ class MetricsController extends Controller
             'gender'         => 'required|in:male,female',
             'activity_level' => 'nullable|integer|between:1,5',
             'body_fat_pct'   => 'nullable|numeric|min:0|max:100',
-            'waist'          => 'nullable|numeric|min:0',
-            'hip'            => 'nullable|numeric|min:0',
+
+            // —— Chỉnh lại validation để nếu field này có present nhưng rỗng hoặc không phải số, controller
+            // sẽ coi như “trường không có” (skip) và không báo lỗi. —— 
+            'waist'          => 'sometimes|nullable|numeric|min:0',
+            'hip'            => 'sometimes|nullable|numeric|min:0',
         ]);
 
         // 2. Gán dữ liệu, mặc định null nếu không có
@@ -27,8 +30,11 @@ class MetricsController extends Controller
         $gender        = $data['gender'];
         $activityLevel = $data['activity_level'] ?? null;
         $bodyFatPct    = $data['body_fat_pct']   ?? null;
-        $waist         = $data['waist']          ?? null;
-        $hip           = $data['hip']            ?? null;
+
+        // Nếu client gửi waist/hip nhưng rỗng hoặc chuỗi không phải số, nó đã bị bỏ qua ở validate, 
+        // nên ở đây chỉ cần lấy nếu có (hoặc null).
+        $waist         = $data['waist'] ?? null;
+        $hip           = $data['hip']   ?? null;
 
         // 3. Tính BMI
         $m   = $height / 100;

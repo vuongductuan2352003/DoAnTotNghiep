@@ -305,15 +305,16 @@ class AuthController extends Controller
                 'message' => 'Mật khẩu không chính xác.'
             ], 401);
         }
-
+        $user = JWTAuth::user(); 
         // 4) Trả về token khi thành công
         return response()->json([
-            'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => JWTAuth::factory()->getTTL() * 60,
-            'success' => true,
-            'message' => 'Đăng nhập thành công!'
-        ], 200);
+        'access_token' => $token,
+        'token_type'   => 'bearer',
+        'expires_in'   => JWTAuth::factory()->getTTL() * 60,
+        'role'         => $user->role,       // Thêm role vào
+        'success'      => true,
+        'message'      => 'Đăng nhập thành công!'
+    ], 200);
     }
 
 

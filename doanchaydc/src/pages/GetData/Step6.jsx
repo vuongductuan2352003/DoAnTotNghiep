@@ -40,8 +40,22 @@ export default function Step6Summary() {
   const weight        = Number(formData.weight)     || 0;
   const bodyFatPct    = Number(formData.bodyFatPercent) || 0;
   const activityLevel = Number(formData.activityLevel)  || 1;
-  const waist         = formData.waist   != null ? Number(formData.waist) : null;
-  const hip           = formData.hip     != null ? Number(formData.hip)   : null;
+
+  // —— Chỉnh ở đây để nếu formData.waist = "" hoặc không phải số thì thành null —— 
+  const waist =
+    formData.waist !== undefined &&
+    formData.waist !== "" &&
+    !isNaN(Number(formData.waist))
+      ? Number(formData.waist)
+      : null;
+
+  const hip =
+    formData.hip !== undefined &&
+    formData.hip !== "" &&
+    !isNaN(Number(formData.hip))
+      ? Number(formData.hip)
+      : null;
+  // ——————————————————————————————————————————————————————————————————————
 
   // 1. BMI
   const bmi = useMemo(() => {
@@ -74,6 +88,7 @@ export default function Step6Summary() {
       body_fat_pct: bodyFatPct,
       activity_level: activityLevel,
     };
+    // Chỉ include nếu giá trị thật sự hợp lệ (đã convert thành Number) 
     if (waist !== null) params.waist = waist;
     if (hip   !== null) params.hip   = hip;
 
